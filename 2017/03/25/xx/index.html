@@ -17,18 +17,21 @@
     
 
     <meta name="description" content="biaoti1sdfg 
-biaoti2biaotisan">
+biaoti2biaotisan用法
+    $.awesome_toc({      autoDetectHeadings: true,      enableToTopButton: true,      title: “INDEX”,      css: {          fontSize: “14px”,          largeFontSize: “18">
 <meta property="og:type" content="article">
 <meta property="og:title" content="xx | Myifeng">
 <meta property="og:url" content="http://myifeng.github.io/2017/03/25/xx/index.html">
 <meta property="og:site_name" content="Myifeng">
 <meta property="og:description" content="biaoti1sdfg 
-biaoti2biaotisan">
-<meta property="og:updated_time" content="2017-03-25T08:11:13.550Z">
+biaoti2biaotisan用法
+    $.awesome_toc({      autoDetectHeadings: true,      enableToTopButton: true,      title: “INDEX”,      css: {          fontSize: “14px”,          largeFontSize: “18">
+<meta property="og:updated_time" content="2017-03-25T08:14:23.257Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xx | Myifeng">
 <meta name="twitter:description" content="biaoti1sdfg 
-biaoti2biaotisan">
+biaoti2biaotisan用法
+    $.awesome_toc({      autoDetectHeadings: true,      enableToTopButton: true,      title: “INDEX”,      css: {          fontSize: “14px”,          largeFontSize: “18">
     
     
     
@@ -179,7 +182,16 @@ classes that you can use:
 
   <section id="post-content" class="article-content post">
     <h1 id="biaoti1"><a href="#biaoti1" class="headerlink" title="biaoti1"></a>biaoti1</h1><p>sdfg </p>
-<h2 id="biaoti2"><a href="#biaoti2" class="headerlink" title="biaoti2"></a>biaoti2</h2><h3 id="biaotisan"><a href="#biaotisan" class="headerlink" title="biaotisan"></a>biaotisan</h3>
+<h2 id="biaoti2"><a href="#biaoti2" class="headerlink" title="biaoti2"></a>biaoti2</h2><h3 id="biaotisan"><a href="#biaotisan" class="headerlink" title="biaotisan"></a>biaotisan</h3><h1 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h1><p><script type="text/javascript" src="/path/to/awesome-toc.min.js"></script></p>
+<p><script type="text/javascript"><br>    $.awesome_toc({<br>      autoDetectHeadings: true,<br>      enableToTopButton: true,<br>      title: “INDEX”,<br>      css: {<br>          fontSize: “14px”,<br>          largeFontSize: “18px”,<br>      },<br>    });<br></script></p>
+<h1 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h1><p>jQuery。</p>
+<p>在jquery 1.11和jquery 2.0中测试通过。</p>
+<h1 id="配置项"><a href="#配置项" class="headerlink" title="配置项"></a>配置项</h1><h2 id="属性-类型-说明"><a href="#属性-类型-说明" class="headerlink" title="属性    类型    说明"></a>属性    类型    说明</h2><p>css.fontSize    string    目录项字体大小，”90%”、”16px”<br>css.largeFontSize    string    标题字体大小<br>css.fontColor    string    基本的字体颜色，”#999”、”red”<br>css.activeFontColor    string    标题和当前active的目录项的字体颜色<br>css.lineHeight    string    目录项的行高<br>css.backgroundColor    string    目录的背景颜色<br>css.zIndex    int    目录的z-index<br>title    string    标题<br>windowMinWidth    int    单位px。当窗口宽度低于此值时，不显示目录<br>sideBarId    string    目录的id，最好带随机字符，以防和网页中id冲突/混淆<br>sideBarWidth    string    目录的宽度<br>sideBarPrefix    string    目录中生成的元素的class的前缀，<br>最好带随机字符，以防和网页中id冲突/混淆<br>headingList    array of string    识别哪些h<em>标签<br>enableToTopButton    bool    是否显示“返回顶部”的按钮<br>enableToc    bool    是否生成目录<br>overlay    bool    是否以遮盖方式显示目录<br>autoDetectHeadings    bool    是否自动探测使用哪些h</em>标签生成目录<br>contentId    string    若不为空，则根据这个id对应的元素的内容生成</p>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><p>contentClass    string    若不为空，则根据这个class对应<br>的第一个元素的内容生成目录<br>displayNow    bool    是否立即显示目录<br>topOffset    int    单位px。有些网页的菜单是固定在顶部的，<br>占有一定空间，该属性值和菜单的高度应该一致。<br>如果设置的合理，点击目录项时，<br>页面滚动后，标题不会被覆盖<br>itemPrefix    string    每个菜单项目的前缀，例如”- “<br>小书签</p>
+<p>首先开启本地的服务：</p>
+<p>$ cd awesome-toc<br>$ python -m SimpleHTTPServer<br>在浏览器中创建书签，url使用下面的内容：</p>
+<p>javascript:(function(){var a=function(a){var b=document.createElement(“script”);b.setAttribute(“src”,a+”?time=”+Date.parse(new Date)),document.body.appendChild(b)};a(“<a href="http://127.0.0.1:8000/build/loader.min.js&quot;)})(" target="_blank" rel="external">http://127.0.0.1:8000/build/loader.min.js&quot;)})(</a>);</p>
+<h1 id="示例："><a href="#示例：" class="headerlink" title="示例："></a>示例：</h1>
   </section>
 
   
