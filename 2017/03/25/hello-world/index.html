@@ -212,19 +212,26 @@ classes that you can use:
 
     
 
-    <script src="/js/awesome-toc.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $.awesome_toc({
-                overlay: true,
-                contentId: "post-content",
-            });
-        });
-    </script>
+    <script type="text/javascript" src="/path/to/awesome-toc.min.js"></script>
+<script type="text/javascript">
+    $.awesome_toc({        
+      autoDetectHeadings: true,
+      enableToTopButton: true,
+      title: "INDEX",
+      css: {
+          fontSize: "14px",
+          largeFontSize: "18px",
+      },
+    });
+</script>
 
 
     
     
+
+    <div class="github-widget" data-repo="JoelSutherland/GitHub-jQuery-Repo-Widget"></div>
+
+
     <!--kill ie6 -->
 <!--[if IE 6]>
   <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
