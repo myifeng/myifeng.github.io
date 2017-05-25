@@ -7,7 +7,7 @@
     
 
     <title>
-      归档 
+      MySSH搭建之路 | Myifeng 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -16,16 +16,32 @@
     
     
 
-    <meta name="description" content="up">
-<meta property="og:type" content="website">
-<meta property="og:title" content="归档">
-<meta property="og:url" content="http://myifeng.github.io/archive/index.html">
+    <meta name="description" content="SSH搭建环境：1.jar包Hibernate：Struts2:Spring:2.配置Struts过滤器
+&amp;lt;!--配置Struts过滤器--&amp;gt;
+&amp;lt;filter&amp;gt;
+    &amp;lt;filter-name&amp;gt;struts2&amp;lt;/filter-name&amp;gt;
+    &amp;lt;filter-class&amp;gt;org.apache.struts2.dispatcher.ng">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySSH搭建之路 | Myifeng">
+<meta property="og:url" content="http://myifeng.github.io/2017/05/24/MySSH搭建之路/index.html">
 <meta property="og:site_name" content="Myifeng">
-<meta property="og:description" content="up">
-<meta property="og:updated_time" content="2017-03-25T07:25:28.893Z">
+<meta property="og:description" content="SSH搭建环境：1.jar包Hibernate：Struts2:Spring:2.配置Struts过滤器
+&amp;lt;!--配置Struts过滤器--&amp;gt;
+&amp;lt;filter&amp;gt;
+    &amp;lt;filter-name&amp;gt;struts2&amp;lt;/filter-name&amp;gt;
+    &amp;lt;filter-class&amp;gt;org.apache.struts2.dispatcher.ng">
+<meta property="og:image" content="http://i.imgur.com/9AkY2Hd.png">
+<meta property="og:image" content="http://i.imgur.com/I5lo901.png">
+<meta property="og:image" content="http://i.imgur.com/ICaqfut.png">
+<meta property="og:updated_time" content="2017-05-24T12:22:57.557Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="归档">
-<meta name="twitter:description" content="up">
+<meta name="twitter:title" content="MySSH搭建之路 | Myifeng">
+<meta name="twitter:description" content="SSH搭建环境：1.jar包Hibernate：Struts2:Spring:2.配置Struts过滤器
+&amp;lt;!--配置Struts过滤器--&amp;gt;
+&amp;lt;filter&amp;gt;
+    &amp;lt;filter-name&amp;gt;struts2&amp;lt;/filter-name&amp;gt;
+    &amp;lt;filter-class&amp;gt;org.apache.struts2.dispatcher.ng">
+<meta name="twitter:image" content="http://i.imgur.com/9AkY2Hd.png">
     
     
     
@@ -154,31 +170,56 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title">归档</h1>
+    <h1 class="post-title">MySSH搭建之路</h1>
 
-    <section id="post-content" class="article-content post">
-        
-    </section>
+    
 
+    <div class="post-meta">
+      <time datetime="2017-05-24" class="post-meta__date date">2017-05-24</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
 
   </header>
 
+  <section id="post-content" class="article-content post">
+    <p>SSH搭建环境：<br><br>1.jar包<br>Hibernate：<br><br><img src="http://i.imgur.com/9AkY2Hd.png" alt=""><br><br>Struts2:<br><br><img src="http://i.imgur.com/I5lo901.png" alt=""><br><br>Spring:<br><img src="http://i.imgur.com/ICaqfut.png" alt=""><br><br>2.配置Struts过滤器<br></p>
+<pre><code>&lt;!--配置Struts过滤器--&gt;
+&lt;filter&gt;
+    &lt;filter-name&gt;struts2&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;
+&lt;/filter&gt;
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;struts2&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+</code></pre><p>3.配置Spring监听器<br></p>
+<pre><code>&lt;!-- 加载spring文件 --&gt;
+&lt;context-param&gt;
+    &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+    &lt;param-value&gt;classpath:applicationContext.xml&lt;/param-value&gt;
+&lt;/context-param&gt;
+
+&lt;!-- 配置spring的监听器 --&gt;
+&lt;listener&gt;
+    &lt;listener-class&gt;org.springframework.web.context.ContextLoaderListener&lt;/listener-class&gt;
+&lt;/listener&gt;
+</code></pre>
+  </section>
+
+  
+  
 </article>
 
-<div class="archive-meta">
 
-
-
-
-
-
-    <h3>归档</h3>
-    <div class="archiveslist">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">四月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a><span class="archive-list-count">1</span></li></ul>
-    </div>
-
-
-</div>
             <footer class="footer">
 
     <span class="footer__copyright">&copy; 2016-2017. | 由<a href="http://www.myifeng.com/">锋哥</a>强力驱动 | QQ<a href="https://user.qzone.qq.com/1778349466/main">空间</a></span>
@@ -206,6 +247,21 @@ classes that you can use:
 
 
     
+
+    <script type="text/javascript" src="/path/to/awesome-toc.min.js"></script>
+<script type="text/javascript">
+    $.awesome_toc({        
+      autoDetectHeadings: true,
+      enableToTopButton: true,
+      title: "INDEX",
+      css: {
+          fontSize: "14px",
+          largeFontSize: "18px",
+      },
+    });
+</script>
+
+
     
     
     <!--kill ie6 -->
