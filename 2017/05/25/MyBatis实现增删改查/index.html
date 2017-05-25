@@ -28,7 +28,7 @@ jar包MyBatis的jar包只有一个">
 jar包MyBatis的jar包只有一个">
 <meta property="og:image" content="http://i.imgur.com/Yxa83JG.png">
 <meta property="og:image" content="http://i.imgur.com/oqQJElT.png">
-<meta property="og:updated_time" content="2017-05-25T06:33:04.070Z">
+<meta property="og:updated_time" content="2017-05-25T09:54:02.760Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MyBatis实现增删改查 | Myifeng">
 <meta name="twitter:description" content="好久不写这个博客。hexo命令都玩不转了，折腾了好久终于可以则是成功。开始今天的博客内容。时代总是向前发展，java也是这样，讨厌了Hibernate的各种复杂关系，然后开始接触MyBatis。顿时有种山重水复疑无路，柳暗花明又一村的赶脚。熟悉的SQL语句再次出现在代码中，简介而方便。下面简单写一个MyBatis实现的用户的增删改查以及模糊查询。
@@ -188,7 +188,7 @@ classes that you can use:
 <p></p><h2>整体结构</h2><br><img src="http://i.imgur.com/Yxa83JG.png" alt=""><p></p>
 <p></p><h2>jar包</h2><br>MyBatis的jar包只有一个<code>mybatis-3.2.3</code>另外加上一个数据库驱动<code>mysql-connector-java-5.1.26-bin</code>.就像下面这样：<br><br><img src="http://i.imgur.com/oqQJElT.png" alt=""><br><br>相比Hibernate的一堆，MyBatis的jar包很简洁有木有<br><p></p>
 <p></p><h2>配置文件</h2><br>既然要用数据库肯定要有数据库的配置文件。我是单独把数据库的配置放到了<code>db.properties</code>中:<br><p></p>
-<h4>db.properties:<h4><br><br>    driver=com.mysql.jdbc.Driver<br>    url=jdbc:mysql://localhost:3306/ssh<br>    username=root<br>    password=root<br><br>然后写MyBatis的配置文件<code>mybatis.xml</code>，约束头是这样子滴：<br><br><br>    &lt;?xml version=”1.0” encoding=”UTF-8” ?&gt;<br>    &lt;!DOCTYPE configuration<br>    PUBLIC “-//mybatis.org//DTD Config 3.0//EN”<br>    “<a href="http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;" target="_blank" rel="external">http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</a><br><br>总体的配置文件是这样滴：<br><br><h4>mybatis.xml:</h4>
+<h4>db.properties:<h4><br><br><br>    driver=com.mysql.jdbc.Driver<br>    url=jdbc:mysql://localhost:3306/ssh<br>    username=root<br>    password=root<br><br>然后写MyBatis的配置文件<code>mybatis.xml</code>，约束头是这样子滴：<br><br><br>    &lt;?xml version=”1.0” encoding=”UTF-8” ?&gt;<br>    &lt;!DOCTYPE configuration<br>    PUBLIC “-//mybatis.org//DTD Config 3.0//EN”<br>    “<a href="http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;" target="_blank" rel="external">http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</a><br><br>总体的配置文件是这样滴：<br><br><h4>mybatis.xml:</h4>
 
 <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;!DOCTYPE configuration
