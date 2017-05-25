@@ -28,7 +28,7 @@ jar包MyBatis的jar包只有一个">
 jar包MyBatis的jar包只有一个">
 <meta property="og:image" content="http://i.imgur.com/Yxa83JG.png">
 <meta property="og:image" content="http://i.imgur.com/oqQJElT.png">
-<meta property="og:updated_time" content="2017-05-25T06:30:05.703Z">
+<meta property="og:updated_time" content="2017-05-25T06:33:04.070Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MyBatis实现增删改查 | Myifeng">
 <meta name="twitter:description" content="好久不写这个博客。hexo命令都玩不转了，折腾了好久终于可以则是成功。开始今天的博客内容。时代总是向前发展，java也是这样，讨厌了Hibernate的各种复杂关系，然后开始接触MyBatis。顿时有种山重水复疑无路，柳暗花明又一村的赶脚。熟悉的SQL语句再次出现在代码中，简介而方便。下面简单写一个MyBatis实现的用户的增删改查以及模糊查询。
@@ -225,35 +225,7 @@ PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
 
 &lt;/configuration&gt;
 </code></pre><p></p><h2>实体类</h2><br>实体类其实没什么好写的直接上代码：<br><p></p>
-<h3>model层</h3><br><h4>User.java :</h4><br><br>    package model;<br><br>    public class User {<br><br>        public User(){<br><br>        }<br>        public User(String name, String pass) {<br>            super();<br>            this.name = name;<br>            this.pass = pass;<br>        }<br>        public User(Integer id, String name, String pass) {<br>            super();<br>            this.id = id;<br>            this.name = name;<br>            this.pass = pass;<br>        }<br><br>        private Integer id;<br>        private String name;<br>        private String pass;<br>        public Integer getId() {<br>            return id;<br>        }<br><br>        public void setId(Integer id) {<br>            this.id = id;<br>        }<br><br>        public String getName() {<br>            return name;<br>        }<br><br>        public void setName(String name) {<br>            this.name = name;<br>        }<br><br>        public String getPass() {<br>            return pass;<br>        }<br><br>        public void setPass(String pass) {<br>            this.pass = pass;<br>        }<br><br>    }<br><br>有了实体类就要有实体类对应的XML配置文件，当然这个也是这个增删改查的核心配置（所有的对数据库的直接操作都是在这个文件中实现的）：<br><br><h4>User.xml :</h4><br><br>    <code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-    &lt;!DOCTYPE mapper
-    PUBLIC &quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;
-    &quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;
-
-    &lt;!-- 写入对应的实体类的包名 --&gt;
-    &lt;mapper namespace=&quot;model&quot;&gt;
-
-        &lt;!--增加用户--&gt;
-        &lt;insert id=&quot;addUser&quot; parameterType=&quot;user&quot;&gt;
-            insert into user (name,pass) values (#{name},#{pass})
-        &lt;/insert&gt;
-
-        &lt;!--删除用户--&gt;
-        &lt;delete id=&quot;deleteUser&quot; parameterType=&quot;int&quot;&gt;
-            delete from user where id = #{id}
-        &lt;/delete&gt;
-
-        &lt;!--修改用户--&gt;
-        &lt;update id=&quot;updateUser&quot; parameterType=&quot;user&quot;&gt;
-            update user set name=#{name} ,pass=#{pass} where id=#{id}
-        &lt;/update&gt;
-
-        &lt;!--查询全部用户--&gt;
-        &lt;select id=&quot;queryAll&quot; resultType=&quot;user&quot;&gt;
-            select * from user
-        &lt;/select&gt;
-
-    &lt;/mapper&gt;</code><br><br><h3>Dao层</h3>
+<h3>model层</h3><br><h4>User.java :</h4><br><br>        package model;<br><br>        public class User {<br><br>            public User(){<br><br>            }<br>            public User(String name, String pass) {<br>                super();<br>                this.name = name;<br>                this.pass = pass;<br>            }<br>            public User(Integer id, String name, String pass) {<br>                super();<br>                this.id = id;<br>                this.name = name;<br>                this.pass = pass;<br>            }<br><br>            private Integer id;<br>            private String name;<br>            private String pass;<br>            public Integer getId() {<br>                return id;<br>            }<br><br>            public void setId(Integer id) {<br>                this.id = id;<br>            }<br><br>            public String getName() {<br>                return name;<br>            }<br><br>            public void setName(String name) {<br>                this.name = name;<br>            }<br><br>            public String getPass() {<br>                return pass;<br>            }<br><br>            public void setPass(String pass) {<br>                this.pass = pass;<br>            }<br><br>        }<br><br>有了实体类就要有实体类对应的XML配置文件，当然这个也是这个增删改查的核心配置（所有的对数据库的直接操作都是在这个文件中实现的）：<br><br><h4>User.xml :</h4><br><br>        &lt;?xml version=”1.0” encoding=”UTF-8” ?&gt;<br>        &lt;!DOCTYPE mapper<br>        PUBLIC “-//mybatis.org//DTD Mapper 3.0//EN”<br>        “<a href="http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;" target="_blank" rel="external">http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</a><br><br>        <!-- 写入对应的实体类的包名 --><br>        <mapper namespace="model"><br><br>            <!--增加用户--><br>            <insert id="addUser" parametertype="user"><br>                insert into user (name,pass) values (#{name},#{pass})<br>            </insert><br><br>            <!--删除用户--><br>            <delete id="deleteUser" parametertype="int"><br>                delete from user where id = #{id}<br>            </delete><br><br>            <!--修改用户--><br>            <update id="updateUser" parametertype="user"><br>                update user set name=#{name} ,pass=#{pass} where id=#{id}<br>            </update><br><br>            <!--查询全部用户--><br>            <select id="queryAll" resulttype="user"><br>                select * from user<br>            </select><br><br>        </mapper><br><br><h3>Dao层</h3>
 
 <h4>UserDao.java :</h4>
 
