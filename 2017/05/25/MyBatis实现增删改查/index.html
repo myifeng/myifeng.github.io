@@ -17,23 +17,23 @@
     
 
     <meta name="description" content="好久不写这个博客。hexo命令都玩不转了，折腾了好久终于可以则是成功。开始今天的博客内容。时代总是向前发展，java也是这样，讨厌了Hibernate的各种复杂关系，然后开始接触MyBatis。顿时有种山重水复疑无路，柳暗花明又一村的赶脚。熟悉的SQL语句再次出现在代码中，简介而方便。下面简单写一个MyBatis实现的用户的增删改查以及模糊查询。
-##整体结构
-##jar包MyBatis的jar包">
+整体结构
+jar包MyBatis的jar包只有一个">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MyBatis实现增删改查 | Myifeng">
 <meta property="og:url" content="http://myifeng.github.io/2017/05/25/MyBatis实现增删改查/index.html">
 <meta property="og:site_name" content="Myifeng">
 <meta property="og:description" content="好久不写这个博客。hexo命令都玩不转了，折腾了好久终于可以则是成功。开始今天的博客内容。时代总是向前发展，java也是这样，讨厌了Hibernate的各种复杂关系，然后开始接触MyBatis。顿时有种山重水复疑无路，柳暗花明又一村的赶脚。熟悉的SQL语句再次出现在代码中，简介而方便。下面简单写一个MyBatis实现的用户的增删改查以及模糊查询。
-##整体结构
-##jar包MyBatis的jar包">
+整体结构
+jar包MyBatis的jar包只有一个">
 <meta property="og:image" content="http://i.imgur.com/Yxa83JG.png">
 <meta property="og:image" content="http://i.imgur.com/oqQJElT.png">
-<meta property="og:updated_time" content="2017-05-25T05:56:07.630Z">
+<meta property="og:updated_time" content="2017-05-25T06:11:38.518Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MyBatis实现增删改查 | Myifeng">
 <meta name="twitter:description" content="好久不写这个博客。hexo命令都玩不转了，折腾了好久终于可以则是成功。开始今天的博客内容。时代总是向前发展，java也是这样，讨厌了Hibernate的各种复杂关系，然后开始接触MyBatis。顿时有种山重水复疑无路，柳暗花明又一村的赶脚。熟悉的SQL语句再次出现在代码中，简介而方便。下面简单写一个MyBatis实现的用户的增删改查以及模糊查询。
-##整体结构
-##jar包MyBatis的jar包">
+整体结构
+jar包MyBatis的jar包只有一个">
 <meta name="twitter:image" content="http://i.imgur.com/Yxa83JG.png">
     
     
@@ -185,50 +185,11 @@ classes that you can use:
 
   <section id="post-content" class="article-content post">
     <p>好久不写这个博客。hexo命令都玩不转了，折腾了好久终于可以则是成功。开始今天的博客内容。<br><br>时代总是向前发展，java也是这样，讨厌了Hibernate的各种复杂关系，然后开始接触<code>MyBatis</code>。顿时有种山重水复疑无路，柳暗花明又一村的赶脚。熟悉的SQL语句再次出现在代码中，简介而方便。<br><br>下面简单写一个MyBatis实现的用户的增删改查以及模糊查询。<br></p>
-<p>##整体结构<br><img src="http://i.imgur.com/Yxa83JG.png" alt=""></p>
-<p>##jar包<br>MyBatis的jar包只有一个<code>mybatis-3.2.3</code>另外加上一个数据库驱动<code>mysql-connector-java-5.1.26-bin</code>.就像下面这样：<br><br><img src="http://i.imgur.com/oqQJElT.png" alt=""><br><br>相比Hibernate的一堆，MyBatis的jar包很简洁有木有<br></p>
-<p>##配置文件<br>既然要用数据库肯定要有数据库的配置文件。我是单独把数据库的配置放到了<code>db.properties</code>中:<br></p>
-<p>#####db.properties:</p>
-<pre><code>driver=com.mysql.jdbc.Driver
-url=jdbc:mysql://localhost:3306/ssh
-username=root
-password=root
-</code></pre><p>然后写MyBatis的配置文件<code>mybatis.xml</code>，约束头是这样子滴：<br></p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
-&lt;!DOCTYPE configuration
-  PUBLIC &quot;-//mybatis.org//DTD Config 3.0//EN&quot;
-  &quot;http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;
-</code></pre><p>总体的配置文件是这样滴：<br></p>
-<p>#####mybatis.xml:<br>    &lt;?xml version=”1.0” encoding=”UTF-8” ?&gt;<br>    &lt;!DOCTYPE configuration<br>      PUBLIC “-//mybatis.org//DTD Config 3.0//EN”<br>      “<a href="http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;" target="_blank" rel="external">http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</a><br>    <configuration><br>        <!-- 导入外部的properties文件 --><br>        <properties resource="db.properties"></properties></configuration></p>
-<pre><code>    &lt;!-- 别名 --&gt;
-    &lt;typeAliases&gt;
-        &lt;typeAlias alias=&quot;user&quot; type=&quot;model.User&quot; /&gt;
-        &lt;typeAlias alias=&quot;int&quot; type=&quot;java.lang.Integer&quot; /&gt;
-        &lt;typeAlias alias=&quot;string&quot; type=&quot;java.lang.String&quot; /&gt;
-    &lt;/typeAliases&gt;
+<p></p><h2>整体结构</h2><br><img src="http://i.imgur.com/Yxa83JG.png" alt=""><p></p>
+<p></p><h2>jar包</h2><br>MyBatis的jar包只有一个<code>mybatis-3.2.3</code>另外加上一个数据库驱动<code>mysql-connector-java-5.1.26-bin</code>.就像下面这样：<br><br><img src="http://i.imgur.com/oqQJElT.png" alt=""><br><br>相比Hibernate的一堆，MyBatis的jar包很简洁有木有<br><p></p>
+<p></p><h2>配置文件</h2><br>既然要用数据库肯定要有数据库的配置文件。我是单独把数据库的配置放到了<code>db.properties</code>中:<br><p></p>
+<h4>db.properties:<h4><br><br>    driver=com.mysql.jdbc.Driver<br>    url=jdbc:mysql://localhost:3306/ssh<br>    username=root<br>    password=root<br>然后写MyBatis的配置文件<code>mybatis.xml</code>，约束头是这样子滴：<br><br><br>    &lt;?xml version=”1.0” encoding=”UTF-8” ?&gt;<br>    &lt;!DOCTYPE configuration<br>      PUBLIC “-//mybatis.org//DTD Config 3.0//EN”<br>      “<a href="http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;" target="_blank" rel="external">http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</a><br>总体的配置文件是这样滴：<br><br><h4>mybatis.xml:</h4><br>    &lt;?xml version=”1.0” encoding=”UTF-8” ?&gt;<br>    &lt;!DOCTYPE configuration<br>      PUBLIC “-//mybatis.org//DTD Config 3.0//EN”<br>      “<a href="http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;" target="_blank" rel="external">http://mybatis.org/dtd/mybatis-3-config.dtd&quot;&gt;</a><br>    <configuration><br>        <!-- 导入外部的properties文件 --><br>        <properties resource="db.properties"><br><br>        <!-- 别名 --><br>        <typealiases><br>            <typealias alias="user" type="model.User"><br>            <typealias alias="int" type="java.lang.Integer"><br>            <typealias alias="string" type="java.lang.String"><br>        </typealias></typealias></typealias></typealiases><br><br>        <!-- 配置数据库连接 --><br>        <environments default="development"><br>            <environment id="development"><br>                <transactionmanager type="JDBC"><br>                <datasource type="POOLED"><br>                    <property name="driver" value="${driver}"><br>                    <property name="url" value="${url}"><br>                    <property name="username" value="${username}"><br>                    <property name="password" value="${password}"><br>                </property></property></property></property></datasource><br>            </transactionmanager></environment><br>        </environments><br><br>        <!-- 配置映射文件 --><br>        <mappers><br>            <mapper resource="model/User.xml"><br>        </mapper></mappers><br><br>    </properties></configuration><br><br><h2>实体类</h2><br>实体类其实没什么好写的直接上代码：<br><br><h3>model层</h3><br><h4>User.java :</h4>
 
-    &lt;!-- 配置数据库连接 --&gt;
-    &lt;environments default=&quot;development&quot;&gt;
-        &lt;environment id=&quot;development&quot;&gt;
-            &lt;transactionManager type=&quot;JDBC&quot; /&gt;
-            &lt;dataSource type=&quot;POOLED&quot;&gt;
-                &lt;property name=&quot;driver&quot; value=&quot;${driver}&quot; /&gt;
-                &lt;property name=&quot;url&quot; value=&quot;${url}&quot; /&gt;
-                &lt;property name=&quot;username&quot; value=&quot;${username}&quot; /&gt;
-                &lt;property name=&quot;password&quot; value=&quot;${password}&quot; /&gt;
-            &lt;/dataSource&gt;
-        &lt;/environment&gt;
-    &lt;/environments&gt;
-
-    &lt;!-- 配置映射文件 --&gt;
-    &lt;mappers&gt;
-        &lt;mapper resource=&quot;model/User.xml&quot; /&gt;
-    &lt;/mappers&gt;
-
-&lt;/configuration&gt;
-</code></pre><p>##实体类<br>实体类其实没什么好写的直接上代码：<br></p>
-<p>###model层</p>
-<p>#####User.java</p>
 <pre><code>package model;
 
 public class User {
@@ -277,33 +238,8 @@ public class User {
 
 }
 </code></pre><p>有了实体类就要有实体类对应的XML配置文件，当然这个也是这个增删改查的核心配置（所有的对数据库的直接操作都是在这个文件中实现的）：<br></p>
-<p>#####User.xml :<br>    &lt;?xml version=”1.0” encoding=”UTF-8” ?&gt;<br>    &lt;!DOCTYPE mapper<br>          PUBLIC “-//mybatis.org//DTD Mapper 3.0//EN”<br>          “<a href="http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;" target="_blank" rel="external">http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</a></p>
-<pre><code>&lt;!-- 写入对应的实体类的包名 --&gt;
-&lt;mapper namespace=&quot;model&quot;&gt;
+<h4>User.xml :</h4><br>    &lt;?xml version=”1.0” encoding=”UTF-8” ?&gt;<br>    &lt;!DOCTYPE mapper<br>          PUBLIC “-//mybatis.org//DTD Mapper 3.0//EN”<br>          “<a href="http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;" target="_blank" rel="external">http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;&gt;</a><br><br>    <!-- 写入对应的实体类的包名 --><br>    <mapper namespace="model"><br><br>        <!--增加用户--><br>        <insert id="addUser" parametertype="user"><br>            insert into user (name,pass) values (#{name},#{pass})<br>        </insert><br><br>        <!--删除用户--><br>        <delete id="deleteUser" parametertype="int"><br>            delete from user where id = #{id}<br>        </delete><br><br>        <!--修改用户--><br>        <update id="updateUser" parametertype="user"><br>            update user set name=#{name} ,pass=#{pass} where id=#{id}<br>        </update><br><br>        <!--查询全部用户--><br>        <select id="queryAll" resulttype="user"><br>            select * from user<br>        </select><br><br>    </mapper><br><h3>Dao层</h3><br><br><h4>UserDao.java :</h4>
 
-    &lt;!--增加用户--&gt;
-    &lt;insert id=&quot;addUser&quot; parameterType=&quot;user&quot;&gt;
-        insert into user (name,pass) values (#{name},#{pass})
-    &lt;/insert&gt;
-
-    &lt;!--删除用户--&gt;
-    &lt;delete id=&quot;deleteUser&quot; parameterType=&quot;int&quot;&gt;
-        delete from user where id = #{id}
-    &lt;/delete&gt;
-
-    &lt;!--修改用户--&gt;
-    &lt;update id=&quot;updateUser&quot; parameterType=&quot;user&quot;&gt;
-        update user set name=#{name} ,pass=#{pass} where id=#{id}
-    &lt;/update&gt;
-
-    &lt;!--查询全部用户--&gt;
-    &lt;select id=&quot;queryAll&quot; resultType=&quot;user&quot;&gt;
-        select * from user
-    &lt;/select&gt;
-
-&lt;/mapper&gt;
-</code></pre><p>###Dao层</p>
-<p>#####UserDao.java :</p>
 <pre><code>package dao;
 import java.util.List;
 import model.User;
@@ -319,8 +255,9 @@ public interface UserDao {
     public List&lt;User&gt; queryAll();
 
 }
-</code></pre><p>###DaoImpl层<br>因为在整个实现的过程中都要使用到SqlSession，所以为了方便使用，在这里写一个<code>BaseDao</code>用来获取SqlSession：<br></p>
-<p>#####BaseDao.java :</p>
+</code></pre><p></p><h3>DaoImpl层</h3><br>因为在整个实现的过程中都要使用到SqlSession，所以为了方便使用，在这里写一个<code>BaseDao</code>用来获取SqlSession：<br><p></p>
+<h4>BaseDao.java :</h4>
+
 <pre><code>package daoImpl;
 import java.io.IOException;
 import java.io.InputStream;
@@ -346,7 +283,8 @@ public class BaseDao {
     }
 
 }
-</code></pre><p>#####UserDaoImpl.java:</p>
+</code></pre><h4>UserDaoImpl.java:</h4>
+
 <pre><code>package daoImpl;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
@@ -402,8 +340,8 @@ public class UserDaoImpl extends BaseDao implements UserDao{
     }
 
 }
-</code></pre><p>##test测试包</p>
-<p>###MyTest测试类<br></p>
+</code></pre><p></p><h2>test测试包</h2><p></p>
+<p></p><h3>MyTest测试类</h3><br><p></p>
 <pre><code>package test;
 import java.util.List;
 import model.User;
@@ -439,7 +377,7 @@ public class MyTest {
     select * from user where name like concat(concat(&apos;%&apos;,#{name}),&apos;%&apos;)
 &lt;/select&gt;
 </code></pre><hr>
-
+</h4></h4>
   </section>
 
   
