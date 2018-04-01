@@ -1,6 +1,6 @@
-# leopard
+# Myifeng
 
-[leopard](https://myifeng.github.io) 是一个简洁的博客模板，如果你也喜欢请 Star ，你的 Star 是我持续更新的动力, 谢谢 😄.
+[Myifeng](https://myifeng.github.io) 是一个简洁的博客模板，如果你也喜欢请 Star ，你的 Star 是我持续更新的动力, 谢谢 😄.
 
 ### 使用条件
 
@@ -16,11 +16,11 @@ Jekyll 需要依赖：Ruby、bundler
 
 #### 获取博客模板
 
-> $ git clone https://github.com/leopardpan/leopardpan.github.io.git
+> $ git clone https://github.com/myifeng/myifeng.github.io.git
 
-或者直接[下载博客](https://github.com/leopardpan/leopardpan.github.io/archive/master.zip)   
+或者直接[下载博客](https://github.com/myifeng/myifeng.github.io/archive/master.zip)   
 
-进leopardpan.github.io/ 目录下， 开启本地服务 
+进myifeng.github.io/ 目录下， 开启本地服务 
 
 > $ jekyll server
 
@@ -48,29 +48,7 @@ Jekyll 需要依赖：Ruby、bundler
 
 ![](/images/readme//icon.gif)
 
-如果你只想要我博客里的头像效果，你只需要拿 myifeng.github.io/_includes/side-panel.html 文件里面 `头像效果` 和 leopardpan.github.io/css/main.css 里面最后面 `头像效果` 部分就行了。
-
-
-***
-
-#### 博客首页   
-
-![](/images/readme//img4.png)   
-
-***  
-
-#### 文章详情   
-
-
-
-![](/images/readme//img3.png)
-
-
-![](/images/readme//img2.png)
-
-
-![](/images/readme//img1.png)
-
+如果你只想要我博客里的头像效果，你只需要拿 myifeng.github.io/_includes/side-panel.html 文件里面 `头像效果` 和 myifeng.github.io/css/main.css 里面最后面 `头像效果` 部分就行了。
 
 #### 感谢   
 

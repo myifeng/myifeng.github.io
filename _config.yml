@@ -11,12 +11,13 @@ url: "https://myifeng.github.io/"
 # Comment
 comment:
     # disqus: leopard
-    uyan: 2160262  # 有言id,登录有言官网申请
+    # uyan: 2160262  # 有言id,登录有言官网申请
 
 # Social
 social:
     weibo: 5243971882 
     github: myifeng
+    gplus: memedavip@gmail.com
     # twitter: 
     mail: qusay@foxmail.com
 
