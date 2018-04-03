@@ -7,6 +7,12 @@
 Jekyll 支持 Mac 、Windows、ubuntu 、Linux 操作系统                     
 Jekyll 需要依赖：Ruby、bundler
 
+具体版本为:
+
+Rudy:[Ruby 2.2.6](https://dl.bintray.com/oneclick/rubyinstaller/ruby-2.2.6-x64-mingw32.7z)
+
+DevKit:[DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe](https://dl.bintray.com/oneclick/rubyinstaller/DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe)
+
 
 #### 安装Jekyll
 
@@ -20,11 +26,23 @@ Jekyll 需要依赖：Ruby、bundler
 
 或者直接[下载博客](https://github.com/myifeng/myifeng.github.io/archive/master.zip)   
 
-进myifeng.github.io/ 目录下， 开启本地服务 
+进myifeng.github.io/ 目录下，  
 
-> $ jekyll server
+开启本地服务前应该首先安装 bundler 
 
-在浏览器输入 [127.0.0.1:4000](127.0.0.1:4000) ， 就可以看到博客效果了。
+> $ gem install bundler
+
+也可能需要下面这个语句
+
+> $ bundle install
+
+开启本地服务
+
+> $ jekyll server  或者
+
+> $ bundle exec jekyll serve
+
+最后在浏览器输入 [127.0.0.1:4000](127.0.0.1:4000) ， 就可以看到博客效果了。
 
 
 ### 提示
@@ -39,16 +57,8 @@ Jekyll 需要依赖：Ruby、bundler
 
 根据上面【提示】修改过后，在你的github里创建一个username.github.io的仓库，username指的值你的github的用户名。      
 创建完成后，把我的这个模板使用git push到你的username.github.io仓库下就行了。
-搭建博客如果遇到问题可以看看我教程[Jekyll搭建个人博客](https://myifeng.github.io)。
+搭建博客如果遇到问题可以看看我教程[使用GitHub+Jekyll搭建个人博客](https://myifeng.github.io)。
 
-
-### 效果预览
-
-#### 头像效果
-
-![](/images/readme//icon.gif)
-
-如果你只想要我博客里的头像效果，你只需要拿 myifeng.github.io/_includes/side-panel.html 文件里面 `头像效果` 和 myifeng.github.io/css/main.css 里面最后面 `头像效果` 部分就行了。
 
 #### 感谢   
 
