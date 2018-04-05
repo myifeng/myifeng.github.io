@@ -66,4 +66,4 @@ cmd运行`gem install jekyll`，顺利结束后，输入`jekyll -v`检测是否�
 
 评论功能计划是用[友言](http://www.uyan.cc/)做的，不知道为什么放上去就是不显示评论框，可能是配置问题吧；另一个就是分享功能，使用了两种插件都不好用，一个是[百度分享](http://share.baidu.com/)，一个是[JisThis](http://www.jiathis.com/),本地运行正常，到了线上就不能显示，调测了一下，是因为现在我这个博客访问是用的https，而这两款插件访问都是http请求，不知道是不是这个问题，所以这两个功能模块就暂时搁置了。
 
-如果你有好的方式或者解决方法，欢迎给我提[Issue]([Issues](https://github.com/myifeng/myifeng.github.io/issues))，万分感激。
+如果你有好的方式或者解决方法，欢迎给我提[Issue](https://github.com/myifeng/myifeng.github.io/issues)，万分感激。
