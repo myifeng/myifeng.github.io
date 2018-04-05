@@ -47,3 +47,23 @@ tag: 博客
 cmd运行`gem install jekyll`，顺利结束后，输入`jekyll -v`检测是否安装成功。
 
 使用`jekyll new myblog`新建一个博客，`cd myblog`打开该目录，运行`jekyll s / jekyll serve`运行该博客，即可在浏览器预览该博客。地址为：127.0.0.1:4000。
+
+如在启动时报错，可能是因为缺少 `bundler`
+
+可以尝试安装 bundler ：
+
+> $ gem install bundler
+
+也可能需要下面这个语句
+
+> $ bundle install
+
+我这里是两个命令都执行了才顺利启动的。
+
+# **问题** #
+
+在安装和运行过程中遇到了很多问题，有些问题现在仍然没有解决，比如评论功能和分享功能。
+
+评论功能计划是用[友言](http://www.uyan.cc/)做的，不知道为什么放上去就是不显示评论框，可能是配置问题吧；另一个就是分享功能，使用了两种插件都不好用，一个是[百度分享](http://share.baidu.com/)，一个是[JisThis](http://www.jiathis.com/),本地运行正常，到了线上就不能显示，调测了一下，是因为现在我这个博客访问是用的https，而这两款插件访问都是http请求，不知道是不是这个问题，所以这两个功能模块就暂时搁置了。
+
+如果你有好的方式或者解决方法，欢迎给我提[Issue]([Issues](https://github.com/myifeng/myifeng.github.io/issues))，万分感激。
