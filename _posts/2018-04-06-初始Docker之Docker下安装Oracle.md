@@ -20,6 +20,7 @@ tag: Docker
 
 >Docker是什么？
 
+
     “在一艘大船上，可以把货物规整的摆放起来。并且各种各样的货物被集装箱标准化了，集装箱和集装箱之间不会互相影响。那么我就不需要专门运送水果的船和专门运送化学品的船了。只要这些货物在集装箱里封装的好好的，那我就可以用一艘大船把他们都运走。”
 
 Docker就是类似的理念。现在都流行云计算了，云计算就好比大货轮，Docker就是集装箱。
@@ -52,6 +53,7 @@ Docker 运行在 CentOS-6.5 或更高的版本的 CentOS 上，要求系统为64
 搜索Oracle镜像
 
 >$ sudo docker search Oracle
+
 
 
     docker.io   docker.io/oraclelinux                         Official Docker builds of Oracle Linux.         434       [OK]
