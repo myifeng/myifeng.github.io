@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "初识Docker之Docker下安装Oracle"
-date: 2018-04-01 
-description: "Jekyll配置，Jekyll+Github，搭建自己的博客"
+date: 2018-04-06 
+description: "Linux系统中Docker下安装Oracle"
 tag: Docker
 ---  
 
