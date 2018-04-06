@@ -62,6 +62,19 @@ cmd运行`gem install jekyll`，顺利结束后，输入`jekyll -v`检测是否�
 
 # **问题** #
 
+如果在安装过`bundler`之后启动服务报错的话，例如下面这个错：
+
+    block in materialize': Could not find ffi-1.9.18 in any of the sources (Bundler::GemNotFound) from D:/rubyInstall/Ruby25-x64/lib/ruby/gems/2.5.0/gems/bundler-1.16.1/l ib/bundler/spec_set.rb:82:inmap!'
+
+这个错误的重点在`Could not find ffi-1.9.18`，使用`gem list`查看你安装的ffi版本，应该不是1.9.18版本。
+
+解决办法：
+
+打开目录下的`Gemfile.lock`文件，找到修改对应的版本号，修改为你电脑安装的版本就可以了。
+
+当然肯定不止一个版本不对，所以要一个一个解决，直到不报错为止。
+
+
 在安装和运行过程中遇到了很多问题，有些问题现在仍然没有解决，比如评论功能和分享功能。
 
 评论功能计划是用[友言](http://www.uyan.cc/)做的，不知道为什么放上去就是不显示评论框，可能是配置问题吧；另一个就是分享功能，使用了两种插件都不好用，一个是[百度分享](http://share.baidu.com/)，一个是[JisThis](http://www.jiathis.com/),本地运行正常，到了线上就不能显示，调测了一下，是因为现在我这个博客访问是用的https，而这两款插件访问都是http请求，不知道是不是这个问题，所以这两个功能模块就暂时搁置了。
