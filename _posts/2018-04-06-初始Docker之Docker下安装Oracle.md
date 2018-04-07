@@ -18,10 +18,10 @@ tag: Docker
 
 然后就自己百度Docker相关资料。
 
->Docker是什么？<br>
+>Docker是什么？
 
 
-    “在一艘大船上，可以把货物规整的摆放起来。并且各种各样的货物被集装箱标准化了，集装箱和集装箱之间不会互相影响。那么我就不需要专门运送水果的船和专门运送化学品的船了。只要这些货物在集装箱里封装的好好的，那我就可以用一艘大船把他们都运走。”
+	“在一艘大船上，可以把货物规整的摆放起来。并且各种各样的货物被集装箱标准化了，集装箱和集装箱之间不会互相影响。那么我就不需要专门运送水果的船和专门运送化学品的船了。只要这些货物在集装箱里封装的好好的，那我就可以用一艘大船把他们都运走。”
 
 Docker就是类似的理念。现在都流行云计算了，云计算就好比大货轮，Docker就是集装箱。
 
@@ -55,14 +55,16 @@ Docker 运行在 CentOS-6.5 或更高的版本的 CentOS 上，要求系统为64
 >$ sudo docker search Oracle<br>
 
 
-    docker.io   docker.io/oraclelinux                         Official Docker builds of Oracle Linux.         434       [OK]
+	docker.io   docker.io/oraclelinux                         Official Docker builds of Oracle Linux.         434       [OK]
     docker.io   docker.io/frolvlad/alpine-oraclejdk8          The smallest Docker image with OracleJDK 8...   300                  [OK]
     docker.io   docker.io/sath89/oracle-12c                   Oracle Standard Edition 12c Release 1 with...   276                  [OK]
     docker.io   docker.io/alexeiled/docker-oracle-xe-11g      This is a working (hopefully) Oracle XE 11...   240                  [OK]
     docker.io   docker.io/sath89/oracle-xe-11g                Oracle xe 11g with database files mount su...   172                  [OK]
     ......
 
-这里我使用的是`docker.io/sath89/oracle-12c`镜像。
+这里我使用的是`docker.io/sath89/oracle-12c`镜像。有关这个镜像的相关信息请查阅[sath89/oracle-12c](https://hub.docker.com/r/sath89/oracle-12c/)
+
+首先pull镜像
 
 >$ docker pull sath89/oracle-12c
 
@@ -72,4 +74,55 @@ Docker 运行在 CentOS-6.5 或更高的版本的 CentOS 上，要求系统为64
 
 >$ sudo docker run -d -p 8091:8091 -p 1521:1521 sath89/oracle-12c
 
-在启动成功之后会显示Oracle运行信息，ID、NAME什么的,这里
+在启动成功之后查看Docker运行的容器
+
+>$ docker ps
+
+
+会显示正在Docker运行的程序的相关信息
+
+进入Oracle container
+
+>$ docker exec -it CONTAINER ID /bin/bash
+
+这里的CONTAINER ID 就是上一步`docker ps`显示的镜像id
+
+切换到Oracle
+
+>$ su oracle
+
+>$ ORACLE_HOME/bin/sqlplus / as sysdba
+
+然后即可对Oracle进行各种配置和操作了。
+
+# **Docker常用命令** #
+
+>docker pull 镜像名
+
+>docker search 镜像名
+
+>docker images
+
+>docker ps
+
+>docker ps -a
+
+>docker rmi -f 镜像id
+
+>docker stop 容器名OR容器ID
+
+>docker start
+
+>docker kill
+
+>docker logs 
+
+>docker run 
+
+>service docker start
+
+>docker [run|start|stop|restart|kill|rm|pause|unpause]
+
+>docker [ps|inspect|top|attach|events|logs|wait|export|port]
+
+
