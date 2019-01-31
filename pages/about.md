@@ -1,8 +1,8 @@
 ---
 layout: page
 title: About
-description: Wendy's Personal Blog
-keywords: 毛毛虫, Wendy
+description: myifeng's Personal Blog
+keywords: 李啧啧, myifeng
 comments: true
 menu: 关于
 permalink: /about/
