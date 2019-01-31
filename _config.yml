@@ -130,5 +130,5 @@ google:
 #使用的是learncloud，appid和key更换成自己的
 leancloud:
   enable: true
-  app_id: EfLTUbK2fJ0dYLAq609NQ2k4-gzGzoHsz
-  app_key: 5Agxeshbunhh9y6XQftwEvGj
+  app_id: 5C0tQR6eaGhuceIV0gvUhkbJ-gzGzoHsz
+  app_key: ElTbV0gVygY5GWTqtzMcotM7
