@@ -1,0 +1,19 @@
+- name: Programming language
+  keywords:
+      - Java
+      - HTML
+      - Vue
+      - PHP
+      - Python
+
+- name: Research Direction
+  keywords:
+      - NLP
+      - Data Analysis
+      - Business Intelligence
+      - Recommended System
+      - Machine Learning
+
+# - name: Research Results
+#   keywords:
+#       - 挖掘企业事件演化

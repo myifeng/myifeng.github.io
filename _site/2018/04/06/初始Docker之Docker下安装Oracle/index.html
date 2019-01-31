@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" prefix="og: http://ogp.me/ns#" class="han-init">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>初识Docker之Docker下安装Oracle &mdash; 李啧啧_myifeng</title>
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/collection.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/repo-card.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/sections/mini-repo-list.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/components/boxed-group.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/common.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/vendor/share.js/dist/css/share.min.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/responsive.css">
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/posts/index.css">
+    <!-- Latest compiled and minified CSS -->
+    
+
+    
+    <link rel="canonical" href="http://localhost:4000/2018/04/06/%E5%88%9D%E5%A7%8BDocker%E4%B9%8BDocker%E4%B8%8B%E5%AE%89%E8%A3%85Oracle/">
+    <link rel="alternate" type="application/atom+xml" title="李啧啧_myifeng" href="http://localhost:4000/feed.xml">
+    <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
+    
+    <meta property="og:title" content="初识Docker之Docker下安装Oracle">
+      
+    <meta name="keywords" content="Docker,Oracle">
+    <meta name="og:keywords" content="Docker,Oracle">
+      
+    <meta name="description" content="ECS云服务器">
+    <meta name="og:description" content="ECS云服务器">
+      
+    
+    
+        
+    
+    <meta property="og:url" content="http://localhost:4000/2018/04/06/%E5%88%9D%E5%A7%8BDocker%E4%B9%8BDocker%E4%B8%8B%E5%AE%89%E8%A3%85Oracle/">
+    <meta property="og:site_name" content="李啧啧_myifeng">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="zh_CN" />
+    
+    <meta property="article:published_time" content="2018-04-06">
+    
+    <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
+    <script type="text/javascript">
+    function toggleMenu() {
+        var nav = document.getElementsByClassName("site-header-nav")[0];
+        if (nav.style.display == "inline-flex") {
+          nav.style.display = "none";
+        } else {
+          nav.style.display = "inline-flex";
+        }
+    }
+    </script>
+</head>
+<body class="" data-mz="">
+    <header class="site-header">
+        <div class="container">
+            <h1><a href="http://localhost:4000/" title="李啧啧_myifeng"><span class="octicon octicon-mark-github"></span> 李啧啧_myifeng</a></h1>
+            <button class="collapsed mobile-visible" type="button" onclick="toggleMenu();">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <nav class="site-header-nav" role="navigation">
+                
+                <a href="http://localhost:4000/" class=" site-header-nav-item" target="" title="Home">Home</a>
+                
+                <a href="http://localhost:4000/categories/" class=" site-header-nav-item" target="" title="Blog">Blog</a>
+                
+                <a href="http://localhost:4000/open-source/" class=" site-header-nav-item" target="" title="Open-source">Open-source</a>
+                
+                <a href="http://localhost:4000/wiki/" class=" site-header-nav-item" target="" title="Wiki">Wiki</a>
+                
+                <a href="http://localhost:4000/links/" class=" site-header-nav-item" target="" title="Link">Link</a>
+                
+                <a href="http://localhost:4000/about/" class=" site-header-nav-item" target="" title="About">About</a>
+                
+            </nav>
+        </div>
+    </header>
+    <!-- / header -->
+
+
+    <section class="collection-head small geopattern" data-pattern-id="初识Docker之Docker">
+<div class="container">
+  <div class="columns">
+    <div class="column three-fourths">
+      <div class="collection-title">
+        <h1 class="collection-header">初识Docker之Docker下安装Oracle</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2018/04/06
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#Docker" title="Docker">Docker</a>
+          </span>
+          
+            <span id="/2018/04/06/%E5%88%9D%E5%A7%8BDocker%E4%B9%8BDocker%E4%B8%8B%E5%AE%89%E8%A3%85Oracle/" class="leancloud_visitors" data-flag-title="初识Docker之Docker下安装Oracle">
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-text"> Hits:  </span>
+            <span class="leancloud-visitors-count"></span>
+            </span>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<!-- / .banner -->
+<section class="container content">
+<div class="columns">
+  <div class="column three-fourths" >
+    <article class="article-content markdown-body">
+    <h1 id="ecs云服务器"><strong>ECS云服务器</strong></h1>
+
+<p>近期阿里云推出一项优惠政策<a href="https://promotion.aliyun.com/ntms/act/group/team.html?group=I00XRrlen0">1核2G 1M宽带 40G SSD硬盘 的ECS云服务器 99一年 279三年</a>，当时就很心动，这么好的优惠果断出手，因为不是新用户所以只好借用别人，帮我买了一个一年期的。然后就开始了慢慢配置环境的道路。</p>
+
+<h1 id="初识docker"><strong>初识Docker</strong></h1>
+
+<p>当时买这个服务器主要是为后期的毕业设计做一个部署环境。拿到服务器之后就把JDK、Tomcat、MySQL甚至把Nginx都装了上去。。。顿时有一种全才的赶脚。不过现在手上的很多项目都是使用了Oracle数据库，所以理所当然的要装一个Oracle数据库。</p>
+
+<p>然后网上搜了一堆Linux系统安装Oracle的教程，晦涩难懂，极其复杂。中午问了公司架构师怎么在Linux环境中安装Oracle，然后说出了一个熟悉但从未接触过的名字——Docker。</p>
+
+<p>然后就自己百度Docker相关资料。</p>
+
+<blockquote>
+  <p>Docker是什么？</p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>“在一艘大船上，可以把货物规整的摆放起来。并且各种各样的货物被集装箱标准化了，集装箱和集装箱之间不会互相影响。那么我就不需要专门运送水果的船和专门运送化学品的船了。只要这些货物在集装箱里封装的好好的，那我就可以用一艘大船把他们都运走。”
+</code></pre></div></div>
+
+<p>Docker就是类似的理念。现在都流行云计算了，云计算就好比大货轮，Docker就是集装箱。</p>
+
+<blockquote>
+  <p>安装Docker</p>
+</blockquote>
+
+<p>Docker 运行在 CentOS 7 上，要求系统为64位、系统内核版本为 3.10 以上。</p>
+
+<p>Docker 运行在 CentOS-6.5 或更高的版本的 CentOS 上，要求系统为64位、系统内核版本为 2.6.32-431 或者更高版本。</p>
+
+<p>在CentOS下使用<code class="highlighter-rouge">yum</code>安装Docker，一共两行命令：</p>
+
+<p>安装：</p>
+
+<blockquote>
+  <p>$ yum -y install docker</p>
+</blockquote>
+
+<p>启动服务：</p>
+
+<blockquote>
+  <p>$ service docker start</p>
+</blockquote>
+
+<p>运行第一个Hello World</p>
+
+<blockquote>
+  <p>$ sudo docker pull hello-world</p>
+</blockquote>
+
+<blockquote>
+  <p>$ sudo docker run hello-word</p>
+</blockquote>
+
+<h1 id="docker下安装oracle"><strong>Docker下安装Oracle</strong></h1>
+
+<p>搜索Oracle镜像</p>
+
+<blockquote>
+  <p>$ sudo docker search Oracle<br /></p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker.io   docker.io/oraclelinux                         Official Docker builds of Oracle Linux.         434       [OK]
+docker.io   docker.io/frolvlad/alpine-oraclejdk8          The smallest Docker image with OracleJDK 8...   300                  [OK]
+docker.io   docker.io/sath89/oracle-12c                   Oracle Standard Edition 12c Release 1 with...   276                  [OK]
+docker.io   docker.io/alexeiled/docker-oracle-xe-11g      This is a working (hopefully) Oracle XE 11...   240                  [OK]
+docker.io   docker.io/sath89/oracle-xe-11g                Oracle xe 11g with database files mount su...   172                  [OK]
+......
+</code></pre></div></div>
+
+<p>这里我使用的是<code class="highlighter-rouge">docker.io/sath89/oracle-12c</code>镜像。有关这个镜像的相关信息请查阅<a href="https://hub.docker.com/r/sath89/oracle-12c/">sath89/oracle-12c</a></p>
+
+<p>首先pull镜像</p>
+
+<blockquote>
+  <p>$ docker pull sath89/oracle-12c</p>
+</blockquote>
+
+<p>这个镜像有2点多G所以要下载好一会。。。</p>
+
+<p>下载安装之后就可以启动运行Oracle了</p>
+
+<blockquote>
+  <p>$ sudo docker run -d -p 8091:8091 -p 1521:1521 sath89/oracle-12c</p>
+</blockquote>
+
+<p>在启动成功之后查看Docker运行的容器</p>
+
+<blockquote>
+  <p>$ docker ps</p>
+</blockquote>
+
+<p>会显示正在Docker运行的程序的相关信息</p>
+
+<p>进入Oracle container</p>
+
+<blockquote>
+  <p>$ docker exec -it CONTAINER ID /bin/bash</p>
+</blockquote>
+
+<p>这里的CONTAINER ID 就是上一步<code class="highlighter-rouge">docker ps</code>显示的镜像id</p>
+
+<p>切换到Oracle</p>
+
+<blockquote>
+  <p>$ su oracle</p>
+</blockquote>
+
+<blockquote>
+  <p>$ ORACLE_HOME/bin/sqlplus / as sysdba</p>
+</blockquote>
+
+<p>然后即可对Oracle进行各种配置和操作了。</p>
+
+<h1 id="docker常用命令"><strong>Docker常用命令</strong></h1>
+
+<blockquote>
+  <p>docker pull 镜像名</p>
+</blockquote>
+
+<blockquote>
+  <p>docker search 镜像名</p>
+</blockquote>
+
+<blockquote>
+  <p>docker images</p>
+</blockquote>
+
+<blockquote>
+  <p>docker ps</p>
+</blockquote>
+
+<blockquote>
+  <p>docker ps -a</p>
+</blockquote>
+
+<blockquote>
+  <p>docker rmi -f 镜像id</p>
+</blockquote>
+
+<blockquote>
+  <p>docker stop 容器名OR容器ID</p>
+</blockquote>
+
+<blockquote>
+  <p>docker start</p>
+</blockquote>
+
+<blockquote>
+  <p>docker kill</p>
+</blockquote>
+
+<blockquote>
+  <p>docker logs</p>
+</blockquote>
+
+<blockquote>
+  <p>docker run</p>
+</blockquote>
+
+<blockquote>
+  <p>service docker start</p>
+</blockquote>
+
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>docker [run</td>
+        <td>start</td>
+        <td>stop</td>
+        <td>restart</td>
+        <td>kill</td>
+        <td>rm</td>
+        <td>pause</td>
+        <td>unpause]</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+<blockquote>
+  <table>
+    <tbody>
+      <tr>
+        <td>docker [ps</td>
+        <td>inspect</td>
+        <td>top</td>
+        <td>attach</td>
+        <td>events</td>
+        <td>logs</td>
+        <td>wait</td>
+        <td>export</td>
+        <td>port]</td>
+      </tr>
+    </tbody>
+  </table>
+</blockquote>
+
+
+    </article>
+    <div class="share">
+      <div class="share-component"></div>
+    </div>
+    <div class="comment">
+      
+
+  
+
+  
+        <div id="gitalk-container"></div>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+        <script>
+        var gitalk = new Gitalk({
+            id: '/2018/04/06/%E5%88%9D%E5%A7%8BDocker%E4%B9%8BDocker%E4%B8%8B%E5%AE%89%E8%A3%85Oracle/',
+            clientID: 'b0d6bb260b842b0838ce',
+            clientSecret: '2c44d50d184fa89a5d9977e134680b45a6a7addf',
+            repo: 'blog-comments',
+            owner: 'myifeng',
+            admin: ['myifeng'],
+            labels: ['gitment'],
+            perPage: 50,
+        })
+        gitalk.render('gitalk-container')
+        </script>
+  
+
+
+    </div>
+  </div>
+  <div class="column one-fourth">
+    
+<h3>Search</h3>
+<div id="site_search">
+    <input type="text" id="search_box" placeholder="Search">
+</div>
+
+<ul id="search_results"></ul>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:4000/assets/css/modules/sidebar-search.css">
+<script src="http://localhost:4000/assets/js/jekyll-search.min.js"></script>
+<script src="http://localhost:4000/assets/js/search.js"></script>
+
+<script type="text/javascript">
+SimpleJekyllSearch({
+    searchInput: document.getElementById('search_box'),
+    resultsContainer: document.getElementById('search_results'),
+    json: 'http://localhost:4000/assets/search_data.json',
+    searchResultTemplate: '<li><a href="{url}" title="{desc}">{title}</a></li>',
+    noResultsText: 'No results found',
+    limit: 10,
+    fuzzy: false,
+    exclude: ['Welcome']
+})
+</script>
+
+    
+
+    
+<h3 class="post-directory-title mobile-hidden">Table of Contents</h3>
+<div id="post-directory-module" class="mobile-hidden">
+  <section class="post-directory">
+  <!-- Links that trigger the jumping -->
+  <!-- Added by javascript below -->
+  <dl></dl>
+  </section>
+</div>
+
+<script src="http://localhost:4000/assets/js/jquery.toc.js"></script>
+
+  </div>
+</div>
+</section>
+<!-- /section.content -->
+
+    <footer class="container">
+        <div class="site-footer" role="contentinfo">
+            <div class="copyright left mobile-block">
+                    © 2018
+                    <span title="myifeng">myifeng</span>
+                    <a href="javascript:window.scrollTo(0,0)" class="right mobile-visible">TOP</a>
+            </div>
+
+            <ul class="site-footer-links right mobile-hidden">
+                <li>
+                    <a href="javascript:window.scrollTo(0,0)" >TOP</a>
+                </li>
+            </ul>
+            <a href="http://github.com/myifeng/myifeng.github.io" target="_blank" aria-label="view source code">
+                <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+            </a>
+
+            <ul class="site-footer-links mobile-hidden">
+                
+                <li>
+                    <a href="http://localhost:4000/" title="Home" target="">Home</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/categories/" title="Blog" target="">Blog</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/open-source/" title="Open-source" target="">Open-source</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/wiki/" title="Wiki" target="">Wiki</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/links/" title="Link" target="">Link</a>
+                </li>
+                
+                <li>
+                    <a href="http://localhost:4000/about/" title="About" target="">About</a>
+                </li>
+                
+                <li><a href="http://localhost:4000/feed.xml"><span class="octicon octicon-rss" style="color:orange;"></span></a></li>
+            </ul>
+
+        </div>
+    </footer>
+    <!-- / footer -->
+    <script src="http://localhost:4000/assets/vendor/share.js/dist/js/share.min.js"></script>
+    <script src="http://localhost:4000/assets/js/geopattern.js"></script>
+    <script src="http://localhost:4000/assets/js/prism.js"></script>
+    <link rel="stylesheet" href="http://localhost:4000/assets/css/globals/prism.css">
+    <script>
+      jQuery(document).ready(function($) {
+        // geopattern
+        $('.geopattern').each(function(){
+          $(this).geopattern($(this).data('pattern-id'));
+        });
+       // hljs.initHighlightingOnLoad();
+      });
+    </script>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <div style="display:none">
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-80669434-1', 'auto');
+        ga('send', 'pageview');
+
+      </script>
+    </div>
+    
+</body>
+</html>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("EfLTUbK2fJ0dYLAq609NQ2k4-gzGzoHsz", "5Agxeshbunhh9y6XQftwEvGj");</script>
+  <script>
+    function showHitCount(Counter) {
+      /* 这是给一个页面中有多篇文章时所调用的，例如博客主界面或者存档界面。
+      */
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      // 获取页面中所有文章的id（page.url）
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      // 批量查询
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var hits = item.get('hits');// 获取点击次数
+            var element = document.getElementById(url);
+
+            // 显示点击次数
+            $(element).find(COUNT_CONTAINER_REF).text(hits);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      // 页面（博客文章）中的信息：leancloud_visitors
+      // id为page.url， data-flag-title为page.title
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      // 只根据文章的url查询LeanCloud服务器中的数据
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {//说明LeanCloud中已经记录了这篇文章
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("hits");// 将点击次数加1
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('hits'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            // 执行这里，说明LeanCloud中还没有记录此文章
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);// 把文章标题
+            newcounter.set("url", url); // 文章url
+            newcounter.set("hits", 1); // 初始点击次数：1次
+            newcounter.save(null, { // 上传到LeanCloud服务器中
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('hits'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        // in post.html, so add 1 to hit counts
+        addCount(Counter);
+      } else if ($('.post-link').length > 1){
+        // in index.html, there are many 'leancloud_visitors' and 'post-link', so just show hit counts.
+        showHitCount(Counter);
+      }
+    });
+  </script>

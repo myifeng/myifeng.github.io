@@ -1,71 +1,134 @@
-# Basic
-title: Myifeng
-subtitle: 个人站
-description: 欢迎来到我的个人站~
-# 头像里面的标题
-avatarTitle: Myifeng
-# 头像里面的描述
-avatarDesc: Java / Web
-url: "https://myifeng.github.io/"
+# ---------------- #
+#   Main Configs   #
+# ---------------- #
+baseurl:
+url: http://myifeng.com
+date_format: "ordinal"
+title: 李啧啧_myifeng
+subtitle: "myifeng's Personal Blog"
+description: "Record ideas and knowledge"
+keywords: Algorithm,Machine Learning(eg.Deep Learning),Data mining
+#timezone: Asia/Beijing
+encoding: "utf-8"
+side_bar_repo_limit: 5
 
-# Comment
-comment:
-    # disqus: leopard
-    # uyan: 2160262  # 有言id,登录有言官网申请
+# ---------------- #
+#      Author      #
+# ---------------- #
+author: myifeng
+organization: HHIT
+organization_url: http://myifeng.com
+github_username: myifeng
+location: Beijing，China
+email: dengwenjun818@gmail.com
 
-# Social
-social:
-    weibo: 5243971882 
-    github: myifeng
-    # gplus: memedavip@gmail.com
-    # twitter: 
-    mail: admin@myifeng.com
-
-# 百度统计 
-# 使用博客模板请去掉或者更换 id 
-baidu:
-    #id: 8ba1c6be0953b6f9c2ba38e57f615421  
-
-# Google Analytics
-# 使用博客模板请去掉或者更换 id
-ga:
-    #id: UA-84134159-3   
-    #host: auto  
+# ---------------- #
+#    Navigation    #
+# ---------------- #
+navs:
+  -
+    href: /
+    label: Home
 
 
-# 《----------------- 上面的信息修改成你自己的 ---------------------------》
-#
-#
-#  _post/ 下的文章更换成你自己的文章
-#  帮忙star一下，感谢~😆 地址： https://github.com/myifeng/myifeng.github.io
-#
-#
-# 《--------------- 下面的信息可以自行选择是否修改 ------------------------》
+  -
+    href: /categories/
+    label: Blog
+   
 
 
-permalink: /:year/:month/:title/
-# Format
+  -
+    href: /open-source/
+    label: Open-source
+   
+
+  -
+    href: /wiki/
+    label: Wiki
+
+  -
+    href: /links/
+    label: Link
+
+  -
+    href: /about/
+    label: About
+
+# ---------------- #
+#       RSS        #
+# ---------------- #
+subscribe_rss: /feed.xml
+
+# ---------------- #
+#      Jekyll      #
+# ---------------- #
+markdown: kramdown
+kramdown:
+    input: GFM
 highlighter: rouge
+paginate: 8
+lsi: false
+quiet: false
+excerpt_separator: "\n\n"
+permalink: /:year/:month/:day/:title/
+plugins:
+    - jekyll-github-metadata
+    - rouge
+#     - jekyll-html-pipeline
+    - jekyll-paginate
+    - jekyll-sitemap
+    - jekyll-feed
+    - jemoji
+#     - jekyll-mentions
+collections:
+    wiki:
+        output: true
+        permalink: /wiki/:path/
 
-textColor: #FF0000
+repository: myifeng/myifeng.github.io
 
-# supported colors: blue, green, purple, red, orange or slate. If you need clear, leave it empty.
-cover_color: clear
+# ---------------- # 
+#      Comments    #
+# ---------------- #
+# support provider: disqus, gitment, gitalk
+#comments_provider: gitalk
+comments_provider: gitalk
 
-# The blog button should not be removed.
-blog_button:
-    title: 博客主页
 
-# Navigation buttons in the front page.s
-nav:
-    - {title: 所有文章, description: archive, url: '/archive'}   
-    - {title: 标签, description: tags, url: '/tags'}      
-    - {title: 关于我, description: about, url: '/about'}      
+# !!!重要!!! 请修改下面这些信息为你自己申请的
+# !!!Important!!! Please modify infos below to yours
+# https://disqus.com
+disqus:
+    username: 
+
     
+# https://imsun.net/posts/gitment-introduction/
+gitment:
+    owner: myifeng
+    repo: blog-comments
+    oauth:
+        client_id: fce4dfc328494995f97c
+        client_secret: 78fc6b732978acb4ecf405e1873f5c91002d8507
+# https://github.com/gitalk/gitalk#install
+gitalk:
+    owner: myifeng
+    repo: blog-comments
+    clientID: b0d6bb260b842b0838ce
+    clientSecret: 2c44d50d184fa89a5d9977e134680b45a6a7addf
+# 在使用其它评论组件时可点击显示 Disqus
+lazy_load_disqus : false
 
-# Pagination
-gems: [jekyll-paginate,jekyll-sitemap]
-paginate: 20
-paginate_path: "page/:num/"
+# ---------------- #
+#    Analytics     #
+# ---------------- #
+google:
+    analytics_id: UA-80669434-1
 
-
+# ---------------- #
+#    Counter     #
+# ---------------- #
+#使用的是learncloud，appid和key更换成自己的
+leancloud:
+  enable: true
+  app_id: EfLTUbK2fJ0dYLAq609NQ2k4-gzGzoHsz
+  app_key: 5Agxeshbunhh9y6XQftwEvGj

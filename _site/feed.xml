@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-01-31T15:14:43+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">李啧啧_myifeng</title><subtitle>Record ideas and knowledge</subtitle><author><name>myifeng</name></author><entry><title type="html">Java企业级电商项目架构演进之路</title><link href="http://localhost:4000/2018/04/21/.Java%E4%BC%81%E4%B8%9A%E7%BA%A7%E7%94%B5%E5%95%86%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B%E4%B9%8B%E8%B7%AF/" rel="alternate" type="text/html" title="Java企业级电商项目架构演进之路" /><published>2018-04-21T00:00:00+08:00</published><updated>2018-04-21T00:00:00+08:00</updated><id>http://localhost:4000/2018/04/21/.Java%E4%BC%81%E4%B8%9A%E7%BA%A7%E7%94%B5%E5%95%86%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B%E4%B9%8B%E8%B7%AF</id><content type="html" xml:base="http://localhost:4000/2018/04/21/.Java%E4%BC%81%E4%B8%9A%E7%BA%A7%E7%94%B5%E5%95%86%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B%E4%B9%8B%E8%B7%AF/">&lt;h1 id=&quot;目录&quot;&gt;&lt;strong&gt;目录&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;#1.开篇&quot;&gt;1.开篇&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;&quot;&gt;1.1 前言&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#1.2&quot;&gt;1.2 大型Java项目架构演进解析&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#2&quot;&gt;2.Lombok框架集成及原理解析&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;&quot;&gt;2.1 Lombok简介&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;&quot;&gt;2.2 Lombok的原理&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;&quot;&gt;2.3 Lombok的使用&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;&quot;&gt;2.4 总结&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- /TOC --&gt;
+
+&lt;h1 id=&quot;1-开篇&quot;&gt;&lt;strong&gt;1 开篇&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;##1.1 前言&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/JcJI1eC.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;本文基于一个完整电商项目进行架构演进，覆盖Tomcat集群+Nginx负载均衡+Redis分布式等核心技能点。&lt;/p&gt;
+
+&lt;p&gt;##1.2 大型Java项目架构演进解析&lt;/p&gt;
+
+&lt;p&gt;任何一个系统的架构都不是一蹴而就的，都是在经历过各种升级迭代之后，各种优化，各种调整之后的产物。例如：一个简单的单服务架构，系统由一个服务器应用和一个数据库加上一个文件服务器构成，通过一个Nginx进行转发。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/w3zaykx.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在随着系统用户量的不断提高，对系统也提出了更高的要求，从而就产生了下面这种服务器集群的架构。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/1aQVjXq.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;然后架构在逐渐升级，逐渐完善，就有了下面的服务器集群和分布式缓存系统架构。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/Uk7GQQt.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;当然随着用户的增多，数据库和文件服务器肯定也会做集群，来满足业务场景的需要。&lt;/p&gt;
+
+&lt;h1 id=&quot;2-lombok框架集成及原理解析&quot;&gt;&lt;strong&gt;2 Lombok框架集成及原理解析&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;##2.1 Lombok简介&lt;/p&gt;
+
+&lt;p&gt;Lombok是一个可以通过简单的注解形式来帮助我们简化消除一些必须有但显得很臃肿的Java代码的工具，通过使用对应的注解，可以在编译源码的时候生成对应的方法。&lt;/p&gt;
+
+&lt;p&gt;例如：我们平时开发过程中总是要花很多时间为Java Bean去创建getter和setter方法，当类里面的属性很多时则创建的getter和setter就很多，代码就很长。而lombok就可以为我们省去创建getter和setter方法的麻烦，代码也会更加简洁。&lt;/p&gt;
+
+&lt;p&gt;Lombok官方地址: &lt;a href=&quot;www.projectlombok.org&quot; title=&quot;www.projectlombok.org&quot;&gt;www.projectlombok.org&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##2.2 Lombok的原理&lt;/p&gt;
+
+&lt;p&gt;接下来进行lombok能够工作的原理分析。 
+自从Java 6起，javac就支持“JSR 269 Pluggable Annotation Processing API”规范，只要程序实现了该API，就能在javac运行的时候得到调用。 
+举例来说，现在有一个实现了”JSR 269 API”的程序A,那么使用javac编译源码的时候具体流程如下： 
+1)javac对源代码进行分析，生成一棵抽象语法树(AST) 
+2)运行过程中调用实现了”JSR 269 API”的A程序 
+3)此时A程序就可以完成它自己的逻辑，包括修改第一步骤得到的抽象语法树(AST) 
+4)javac使用修改后的抽象语法树(AST)生成字节码文件&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/BlXjt0w.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;##2.3 Lombok的使用&lt;/p&gt;
+
+&lt;p&gt;如果是使用Maven构建项目，则添加以下依赖：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;org.projectlombok&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;lombok&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;1.16.18&amp;lt;/version&amp;gt;
+    &amp;lt;scope&amp;gt;provided&amp;lt;/scope&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;否则直接下载jar包并引入到项目中，下载地址&lt;a href=&quot;https://projectlombok.org/download&quot;&gt;www.projectlombok.org/download&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;lombok的使用主要是通过注解方式。&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;@Getter
+@Setter
+@ToString
+@EqualsAndHashCode（of={&quot;userName&quot;,&quot;passWord&quot;}）
+@NoArgsConstructor
+public class User{
+	private String userName;
+	private String passWord;
+} 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Getter&lt;/code&gt;/&lt;code class=&quot;highlighter-rouge&quot;&gt;@Setter&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;用于生成getter和setter方法。例如：&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;userName&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;passWord&lt;/code&gt;在编译时都会生成getter和setter方法，生成的getter和setter方法是&lt;code class=&quot;highlighter-rouge&quot;&gt;public&lt;/code&gt;的；若要修改其修饰符可设置&lt;code class=&quot;highlighter-rouge&quot;&gt;AccessLevel的值&lt;/code&gt;，如&lt;code class=&quot;highlighter-rouge&quot;&gt;passWord&lt;/code&gt;的getter方法就是&lt;code class=&quot;highlighter-rouge&quot;&gt;private&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Getter&lt;/code&gt;/&lt;code class=&quot;highlighter-rouge&quot;&gt;@Setter&lt;/code&gt;可以直接在类上进行注释，对类里面所有的属性均可生成getter和setter方法，&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@ToString&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;@ToString&lt;/code&gt;会生成&lt;code class=&quot;highlighter-rouge&quot;&gt;toString()&lt;/code&gt;方法，它会按顺序依次打印类名、字段；若想忽略输出字段，则可以用&lt;code class=&quot;highlighter-rouge&quot;&gt;exclude&lt;/code&gt;设置参数；如果有继承父类，可以设置&lt;code class=&quot;highlighter-rouge&quot;&gt;callSuper&lt;/code&gt;为&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;让其调用父类&lt;code class=&quot;highlighter-rouge&quot;&gt;toString()&lt;/code&gt;方法：&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@EqualsAndHashCode&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;使用@EqualsAndHashCode会生成hashCode()和equals()方法，默认会使用所有非静态、非transient字段；
+如果想排除某些字段可设置exclude参数；
+如果想指定某些字段可设置of参数；
+如果有继承父类，可以设置callSuper为true让其调用父类生成的equals()和hashCode方法，但是当没有继承父类并设置callSuper为true时会在编译时报错。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@NoArgsConstructor&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;@NoArgsConstructor&lt;/code&gt;生成一个无参数构造函数。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@AllArgsConstructor&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;生成全参数构造函数，将类中的每个字段生成带有1个参数的构造函数，例如有3个字段，则构造函数的参数为3个;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Data&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Data&lt;/code&gt;包含了&lt;code class=&quot;highlighter-rouge&quot;&gt;@ToString&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;@EqualsAndHashCode&lt;/code&gt;,&lt;code class=&quot;highlighter-rouge&quot;&gt;@Getter&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;@Setter&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;@RequiredArgsConstructor&lt;/code&gt;的功能。&lt;/p&gt;
+
+&lt;p&gt;更多注解、用法和说明可查看官网文档&lt;a href=&quot;https://projectlombok.org/features/all&quot;&gt;Lombok features&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;##2.4 总结&lt;/p&gt;
+
+&lt;p&gt;使用lombok能够为我们省去手动创建getter和setter方法的麻烦，lombok 有助于代码的整洁、效率的提高以及冗余的减少，但也同时降低了源代码文件的可读性和完整性。&lt;/p&gt;
+
+&lt;p&gt;不可过度依赖lombok。&lt;/p&gt;</content><author><name>myifeng</name></author><summary type="html">目录</summary></entry><entry><title type="html">开发中常用命令和操作集合帖</title><link href="http://localhost:4000/2018/04/15/%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%92%8C%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88%E5%B8%96/" rel="alternate" type="text/html" title="开发中常用命令和操作集合帖" /><published>2018-04-15T00:00:00+08:00</published><updated>2018-04-15T00:00:00+08:00</updated><id>http://localhost:4000/2018/04/15/%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%92%8C%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88%E5%B8%96</id><content type="html" xml:base="http://localhost:4000/2018/04/15/%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%92%8C%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88%E5%B8%96/">&lt;h1 id=&quot;前言&quot;&gt;前言&lt;/h1&gt;
+
+&lt;p&gt;此贴只为记录日常使用的一些常用命令或者一些操作，仅作为日常笔记而已，好记性不如烂笔头。日常更新。&lt;/p&gt;
+
+&lt;h1 id=&quot;java&quot;&gt;Java&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;递归判断编号，根据增长生成不重复编号&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;public String checkApplyNo(String applyNo) {
+	List&amp;lt;String&amp;gt; list = dao.queryApplyNo(applyNo);
+	if (list != null &amp;amp;&amp;amp; list.size() &amp;gt; 0) {
+		return checkApplyNo(String.valueOf(Long.valueOf(applyNo) + 1));
+	}
+	return applyNo;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;linux&quot;&gt;Linux&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;ps -ef&lt;/td&gt;
+        &lt;td&gt;grep tomcat  显示所有Tomcat进程信息&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;easyui&quot;&gt;EasyUI&lt;/h1&gt;
+
+&lt;p&gt;##&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;jQuery 选择器&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$(“.class”).css(“display”,”none”);  //设置不显示&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$(“.class”).css(“display”,””);  //设置显示&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$(“#id”).textbox({required:false,value:’’});//设置必填，赋值&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>myifeng</name></author><summary type="html">前言</summary></entry><entry><title type="html">Cookie爆炸引起的思考</title><link href="http://localhost:4000/2018/04/11/Cookie%E7%88%86%E7%82%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E6%80%9D%E8%80%83/" rel="alternate" type="text/html" title="Cookie爆炸引起的思考" /><published>2018-04-11T00:00:00+08:00</published><updated>2018-04-11T00:00:00+08:00</updated><id>http://localhost:4000/2018/04/11/Cookie%E7%88%86%E7%82%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E6%80%9D%E8%80%83</id><content type="html" xml:base="http://localhost:4000/2018/04/11/Cookie%E7%88%86%E7%82%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E6%80%9D%E8%80%83/">&lt;h1 id=&quot;cookie大爆炸&quot;&gt;&lt;strong&gt;Cookie大爆炸&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;“页面加载不出来了！！！，又出现一个BUG”&lt;/p&gt;
+
+&lt;p&gt;测试系统登陆之后加载不出来，所有页面都挂掉了，但是有的用户登录却很正常。两者对比发现登录后异常的账号是最近用来开发新模块用的账户，所以紧急排查了一下新开发的功能模块，并没有发现问题。并且登录正常的用户也有这个新开发的模块，所以问题应该不是出在新开发的模块上，应该是登录时候哪里出现了问题。&lt;/p&gt;
+
+&lt;p&gt;登录时访问后台成功，所以问题极有可能出在登陆之后的操作——Cookie的操作中。因为在登陆之后，要将后台返回过来的相关信息放入Cookie中，后来删掉跟新功能有关的那个Cookie操作，果然就正常了。&lt;/p&gt;
+
+&lt;p&gt;问题的原因是什么呢？既不是新功能模块的原因，也是不是新功能操作Cookie的原因，而是Cookie的值过大引起的。在登录异常的用户的Cookie一共有8700字符，删掉没有Cookie之后只有4500多字符，然后系统就正常了。可见Cookie虽好，可不要贪多啊！&lt;/p&gt;
+
+&lt;p&gt;到底各种浏览器对Cookie的限制大小为多少，网上也是说法不一，截取了一个，但是感觉应该描述不准确，至少现在我用的Chrome，Cookie4500多字节依然没有问题。&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th style=&quot;text-align: right&quot;&gt;IE6.0&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;IE7.0+&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Opera&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;FF&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Safari&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Chrome&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;cookie个数&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;每个域为20个&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;每个域为50个&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;每个域为30个&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;每个域为20个&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;没有个数限制&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;每个域为53个&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;cookie大小&lt;/td&gt;
+      &lt;td style=&quot;text-align: right&quot;&gt;4095个字节&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4095个字节&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4096个字节&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4097个字节&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4097个字节&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4097个字节&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;jquery操作cookie&quot;&gt;&lt;strong&gt;JQuery操作Cookie&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$.cookie('the_cookie','the_value',{
+    expires:7,  
+    path:'/',
+    domain:'jquery.com',
+    secure:true
+})
+
+expires：（Number|Date）有效期；设置一个整数时，单位是天；也可以设置一个日期对象作为Cookie的过期日期；
+path：（String）创建该Cookie的页面路径；
+domain：（String）创建该Cookie的页面域名；
+secure：（Booblean）如果设为true，那么此Cookie的传输会要求一个安全协议，例如：HTTPS；
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;1.增加一个Cookie&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$.cookie(‘the_cookie’, ‘the_value’);&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;2.创建一个cookie并设置有效时间为7天&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$.cookie(‘the_cookie’, ‘the_value’, { expires: 7 });&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;3.创建一个cookie并设置cookie的有效路径&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$.cookie(‘the_cookie’, ‘the_value’, { expires: 7, path: ‘/’ });&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;4.读取cookie&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$.cookie(‘the_cookie’);&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;5.删除cookie&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$.cookie(‘the_cookie’, null);&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>myifeng</name></author><summary type="html">Cookie大爆炸</summary></entry><entry><title type="html">初识Docker之Docker下安装Oracle</title><link href="http://localhost:4000/2018/04/06/%E5%88%9D%E5%A7%8BDocker%E4%B9%8BDocker%E4%B8%8B%E5%AE%89%E8%A3%85Oracle/" rel="alternate" type="text/html" title="初识Docker之Docker下安装Oracle" /><published>2018-04-06T00:00:00+08:00</published><updated>2018-04-06T00:00:00+08:00</updated><id>http://localhost:4000/2018/04/06/%E5%88%9D%E5%A7%8BDocker%E4%B9%8BDocker%E4%B8%8B%E5%AE%89%E8%A3%85Oracle</id><content type="html" xml:base="http://localhost:4000/2018/04/06/%E5%88%9D%E5%A7%8BDocker%E4%B9%8BDocker%E4%B8%8B%E5%AE%89%E8%A3%85Oracle/">&lt;h1 id=&quot;ecs云服务器&quot;&gt;&lt;strong&gt;ECS云服务器&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;近期阿里云推出一项优惠政策&lt;a href=&quot;https://promotion.aliyun.com/ntms/act/group/team.html?group=I00XRrlen0&quot;&gt;1核2G 1M宽带 40G SSD硬盘 的ECS云服务器 99一年 279三年&lt;/a&gt;，当时就很心动，这么好的优惠果断出手，因为不是新用户所以只好借用别人，帮我买了一个一年期的。然后就开始了慢慢配置环境的道路。&lt;/p&gt;
+
+&lt;h1 id=&quot;初识docker&quot;&gt;&lt;strong&gt;初识Docker&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;当时买这个服务器主要是为后期的毕业设计做一个部署环境。拿到服务器之后就把JDK、Tomcat、MySQL甚至把Nginx都装了上去。。。顿时有一种全才的赶脚。不过现在手上的很多项目都是使用了Oracle数据库，所以理所当然的要装一个Oracle数据库。&lt;/p&gt;
+
+&lt;p&gt;然后网上搜了一堆Linux系统安装Oracle的教程，晦涩难懂，极其复杂。中午问了公司架构师怎么在Linux环境中安装Oracle，然后说出了一个熟悉但从未接触过的名字——Docker。&lt;/p&gt;
+
+&lt;p&gt;然后就自己百度Docker相关资料。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Docker是什么？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;“在一艘大船上，可以把货物规整的摆放起来。并且各种各样的货物被集装箱标准化了，集装箱和集装箱之间不会互相影响。那么我就不需要专门运送水果的船和专门运送化学品的船了。只要这些货物在集装箱里封装的好好的，那我就可以用一艘大船把他们都运走。”
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Docker就是类似的理念。现在都流行云计算了，云计算就好比大货轮，Docker就是集装箱。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;安装Docker&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Docker 运行在 CentOS 7 上，要求系统为64位、系统内核版本为 3.10 以上。&lt;/p&gt;
+
+&lt;p&gt;Docker 运行在 CentOS-6.5 或更高的版本的 CentOS 上，要求系统为64位、系统内核版本为 2.6.32-431 或者更高版本。&lt;/p&gt;
+
+&lt;p&gt;在CentOS下使用&lt;code class=&quot;highlighter-rouge&quot;&gt;yum&lt;/code&gt;安装Docker，一共两行命令：&lt;/p&gt;
+
+&lt;p&gt;安装：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$ yum -y install docker&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;启动服务：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$ service docker start&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;运行第一个Hello World&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$ sudo docker pull hello-world&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$ sudo docker run hello-word&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h1 id=&quot;docker下安装oracle&quot;&gt;&lt;strong&gt;Docker下安装Oracle&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;搜索Oracle镜像&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$ sudo docker search Oracle&lt;br /&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker.io   docker.io/oraclelinux                         Official Docker builds of Oracle Linux.         434       [OK]
+docker.io   docker.io/frolvlad/alpine-oraclejdk8          The smallest Docker image with OracleJDK 8...   300                  [OK]
+docker.io   docker.io/sath89/oracle-12c                   Oracle Standard Edition 12c Release 1 with...   276                  [OK]
+docker.io   docker.io/alexeiled/docker-oracle-xe-11g      This is a working (hopefully) Oracle XE 11...   240                  [OK]
+docker.io   docker.io/sath89/oracle-xe-11g                Oracle xe 11g with database files mount su...   172                  [OK]
+......
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这里我使用的是&lt;code class=&quot;highlighter-rouge&quot;&gt;docker.io/sath89/oracle-12c&lt;/code&gt;镜像。有关这个镜像的相关信息请查阅&lt;a href=&quot;https://hub.docker.com/r/sath89/oracle-12c/&quot;&gt;sath89/oracle-12c&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;首先pull镜像&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$ docker pull sath89/oracle-12c&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这个镜像有2点多G所以要下载好一会。。。&lt;/p&gt;
+
+&lt;p&gt;下载安装之后就可以启动运行Oracle了&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$ sudo docker run -d -p 8091:8091 -p 1521:1521 sath89/oracle-12c&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;在启动成功之后查看Docker运行的容器&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$ docker ps&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;会显示正在Docker运行的程序的相关信息&lt;/p&gt;
+
+&lt;p&gt;进入Oracle container&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$ docker exec -it CONTAINER ID /bin/bash&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;这里的CONTAINER ID 就是上一步&lt;code class=&quot;highlighter-rouge&quot;&gt;docker ps&lt;/code&gt;显示的镜像id&lt;/p&gt;
+
+&lt;p&gt;切换到Oracle&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$ su oracle&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$ ORACLE_HOME/bin/sqlplus / as sysdba&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;然后即可对Oracle进行各种配置和操作了。&lt;/p&gt;
+
+&lt;h1 id=&quot;docker常用命令&quot;&gt;&lt;strong&gt;Docker常用命令&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;docker pull 镜像名&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;docker search 镜像名&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;docker images&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;docker ps&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;docker ps -a&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;docker rmi -f 镜像id&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;docker stop 容器名OR容器ID&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;docker start&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;docker kill&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;docker logs&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;docker run&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;service docker start&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;docker [run&lt;/td&gt;
+        &lt;td&gt;start&lt;/td&gt;
+        &lt;td&gt;stop&lt;/td&gt;
+        &lt;td&gt;restart&lt;/td&gt;
+        &lt;td&gt;kill&lt;/td&gt;
+        &lt;td&gt;rm&lt;/td&gt;
+        &lt;td&gt;pause&lt;/td&gt;
+        &lt;td&gt;unpause]&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;docker [ps&lt;/td&gt;
+        &lt;td&gt;inspect&lt;/td&gt;
+        &lt;td&gt;top&lt;/td&gt;
+        &lt;td&gt;attach&lt;/td&gt;
+        &lt;td&gt;events&lt;/td&gt;
+        &lt;td&gt;logs&lt;/td&gt;
+        &lt;td&gt;wait&lt;/td&gt;
+        &lt;td&gt;export&lt;/td&gt;
+        &lt;td&gt;port]&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/blockquote&gt;</content><author><name>myifeng</name></author><summary type="html">ECS云服务器</summary></entry><entry><title type="html">使用GitHub+Jekyll搭建个人博客</title><link href="http://localhost:4000/2018/04/01/%E4%BD%BF%E7%94%A8GitHub+Jekyll%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" rel="alternate" type="text/html" title="使用GitHub+Jekyll搭建个人博客" /><published>2018-04-01T00:00:00+08:00</published><updated>2018-04-01T00:00:00+08:00</updated><id>http://localhost:4000/2018/04/01/%E4%BD%BF%E7%94%A8GitHub+Jekyll%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2</id><content type="html" xml:base="http://localhost:4000/2018/04/01/%E4%BD%BF%E7%94%A8GitHub+Jekyll%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">&lt;p&gt;　　去年刚接触GitHub时，出于好奇，利用GitHub+HEXO搭建了一个自己的个人主页。整个过程崎岖坎坷，不过最后也是成功啦。后来由于学习和工作原因，加上更换电脑环境丢失，也就更新了几篇就停更了。
+　　最近突然想到这件事，决定把环境配上重新创建一个个人主页。这个决定采用现在比较流行的GitHub+Jeky来搭建。
+　　&lt;/p&gt;
+&lt;h1 id=&quot;jekyll&quot;&gt;&lt;strong&gt;Jekyll&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;    Jekyll是一个简单的免费的Blog生成工具，类似WordPress。但是和WordPress又有很大的不同，原因是jekyll只是一个生成静态网页的工具，不需要数据库支持。但是可以配合第三方服务,例如Disqus。最关键的是jekyll可以免费部署在Github上，而且可以绑定自己的域名。&lt;/p&gt;
+
+&lt;p&gt;    了解了Jekyll是什么，下面就开始步入正题，开始搭建个人主页。
+　　&lt;/p&gt;
+&lt;h1 id=&quot;安装ruby&quot;&gt;&lt;strong&gt;安装Ruby&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;    首先下载&lt;a href=&quot;https://rubyinstaller.org/downloads/&quot; title=&quot;Ruby&quot;&gt;Rulby&lt;/a&gt;安装包。&lt;/p&gt;
+
+&lt;p&gt;    这里我一开始下载的是2.5.1版本，在后期运行Jekyll时报错，后来降低了版本，安装了2.2.6版本，就运行正常了，所以推荐使用2。0~3.0之间的版本。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/plTy6wX.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;    安装时勾选第二项“Add Ruby executables to your PATH”,选定安装目录，例如&lt;code class=&quot;highlighter-rouge&quot;&gt;D:\Ruby22-x64&lt;/code&gt;,等待安装结束。&lt;/p&gt;
+
+&lt;p&gt;    打开cmd控制台，输入&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby -v&lt;/code&gt;，如出现版本信息，则安装成功。我的输出为&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby 2.2.6p396 (2016-11-15 revision 56800) [x64-mingw32]&lt;/code&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;安装devkit&quot;&gt;&lt;strong&gt;安装Devkit&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;    下载&lt;a href=&quot;https://rubyinstaller.org/downloads/&quot; title=&quot;Devkit&quot;&gt;Devkit&lt;/a&gt;安装包，我安装的是&lt;code class=&quot;highlighter-rouge&quot;&gt;DevKit-mingw64-64-4.7.2-20130224-1432-sfx.exe&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;    下载完成后双击解压到制定目录下，例如：&lt;code class=&quot;highlighter-rouge&quot;&gt;D:\Devkit&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;初始化devkit&quot;&gt;初始化DevKit&lt;/h2&gt;
+
+&lt;p&gt;    在Deckit解压目录运行cmd，执行&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby dk.rb init&lt;/code&gt;，初始化成功后，Devkit目录下将出现&lt;code class=&quot;highlighter-rouge&quot;&gt;config.yml&lt;/code&gt;文件，打开，最后有一句&lt;code class=&quot;highlighter-rouge&quot;&gt;- D:\Ruby22-x64&lt;/code&gt;（这里是Ruby的安装目录），如没有，则手动添加。&lt;/p&gt;
+
+&lt;p&gt;    回到cmd窗口，继续执行&lt;code class=&quot;highlighter-rouge&quot;&gt;ruby dk.rb install&lt;/code&gt;，顺利结束后，则Devkit配置完成。&lt;/p&gt;
+
+&lt;h1 id=&quot;安装jekyll&quot;&gt;&lt;strong&gt;安装Jekyll&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;cmd运行&lt;code class=&quot;highlighter-rouge&quot;&gt;gem install jekyll&lt;/code&gt;，顺利结束后，输入&lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll -v&lt;/code&gt;检测是否安装成功。&lt;/p&gt;
+
+&lt;p&gt;使用&lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll new myblog&lt;/code&gt;新建一个博客，&lt;code class=&quot;highlighter-rouge&quot;&gt;cd myblog&lt;/code&gt;打开该目录，运行&lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll s / jekyll serve&lt;/code&gt;运行该博客，即可在浏览器预览该博客。地址为：127.0.0.1:4000。&lt;/p&gt;
+
+&lt;p&gt;如在启动时报错，可能是因为缺少 &lt;code class=&quot;highlighter-rouge&quot;&gt;bundler&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;可以尝试安装 bundler ：&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$ gem install bundler&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;也可能需要下面这个语句&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;$ bundle install&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;我这里是两个命令都执行了才顺利启动的。&lt;/p&gt;
+
+&lt;h1 id=&quot;问题&quot;&gt;&lt;strong&gt;问题&lt;/strong&gt;&lt;/h1&gt;
+
+&lt;p&gt;如果在安装过&lt;code class=&quot;highlighter-rouge&quot;&gt;bundler&lt;/code&gt;之后启动服务报错的话，例如下面这个错：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;block in materialize': Could not find ffi-1.9.18 in any of the sources (Bundler::GemNotFound) from D:/rubyInstall/Ruby25-x64/lib/ruby/gems/2.5.0/gems/bundler-1.16.1/l ib/bundler/spec_set.rb:82:inmap!'
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这个错误的重点在&lt;code class=&quot;highlighter-rouge&quot;&gt;Could not find ffi-1.9.18&lt;/code&gt;，使用&lt;code class=&quot;highlighter-rouge&quot;&gt;gem list&lt;/code&gt;查看你安装的ffi版本，应该不是1.9.18版本。&lt;/p&gt;
+
+&lt;p&gt;解决办法：&lt;/p&gt;
+
+&lt;p&gt;打开目录下的&lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile.lock&lt;/code&gt;文件，找到修改对应的版本号，修改为你电脑安装的版本就可以了。&lt;/p&gt;
+
+&lt;p&gt;当然肯定不止一个版本不对，所以要一个一个解决，直到不报错为止。&lt;/p&gt;
+
+&lt;p&gt;在安装和运行过程中遇到了很多问题，有些问题现在仍然没有解决，比如评论功能和分享功能。&lt;/p&gt;
+
+&lt;p&gt;评论功能计划是用&lt;a href=&quot;http://www.uyan.cc/&quot;&gt;友言&lt;/a&gt;做的，不知道为什么放上去就是不显示评论框，可能是配置问题吧；另一个就是分享功能，使用了两种插件都不好用，一个是&lt;a href=&quot;http://share.baidu.com/&quot;&gt;百度分享&lt;/a&gt;，一个是&lt;a href=&quot;http://www.jiathis.com/&quot;&gt;JisThis&lt;/a&gt;,本地运行正常，到了线上就不能显示，调测了一下，是因为现在我这个博客访问是用的https，而这两款插件访问都是http请求，不知道是不是这个问题，所以这两个功能模块就暂时搁置了。&lt;/p&gt;
+
+&lt;p&gt;如果你有好的方式或者解决方法，欢迎给我提&lt;a href=&quot;https://github.com/myifeng/myifeng.github.io/issues&quot;&gt;Issue&lt;/a&gt;，万分感激。&lt;/p&gt;</content><author><name>myifeng</name></author><summary type="html">　　去年刚接触GitHub时，出于好奇，利用GitHub+HEXO搭建了一个自己的个人主页。整个过程崎岖坎坷，不过最后也是成功啦。后来由于学习和工作原因，加上更换电脑环境丢失，也就更新了几篇就停更了。 　　最近突然想到这件事，决定把环境配上重新创建一个个人主页。这个决定采用现在比较流行的GitHub+Jeky来搭建。 　　 Jekyll     Jekyll是一个简单的免费的Blog生成工具，类似WordPress。但是和WordPress又有很大的不同，原因是jekyll只是一个生成静态网页的工具，不需要数据库支持。但是可以配合第三方服务,例如Disqus。最关键的是jekyll可以免费部署在Github上，而且可以绑定自己的域名。</summary></entry></feed>
