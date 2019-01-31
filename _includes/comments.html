@@ -7,7 +7,7 @@
     var disqus_config = function () {
         this.page.url = '{{ site.url }}{{ page.url }}';
         this.page.identifier = '{{ page.url }}';
-        this.page.title = '{{ page.date }}';
+        this.page.title = '{{ page.title }}';
     };
     var disqus_loaded = false;
     $(function() {
@@ -52,7 +52,7 @@
             var disqus_config = function () {
               this.page.url = '{{ site.url }}{{ page.url }}';
               this.page.identifier = '{{ page.url }}';
-              this.page.title = '{{ page.date }}';
+              this.page.title = '{{ page.title }}';
             };
             (function() { // DON'T EDIT BELOW THIS LINE
               var d = document, s = d.createElement('script');

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>开发中常用命令和操作集合帖 &mdash; 李啧啧_myifeng</title>
+    <title>初识Docker之Docker下安装Oracle &mdash; 李啧啧_myifeng</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -21,28 +21,28 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/2018/04/15/%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%92%8C%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88%E5%B8%96/">
+    <link rel="canonical" href="http://localhost:4000/2018/04/06/install-Oracle-Docker/">
     <link rel="alternate" type="application/atom+xml" title="李啧啧_myifeng" href="http://localhost:4000/feed.xml">
     <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
     
-    <meta property="og:title" content="开发中常用命令和操作集合帖">
+    <meta property="og:title" content="初识Docker之Docker下安装Oracle">
       
-    <meta name="keywords" content="command">
-    <meta name="og:keywords" content="command">
+    <meta name="keywords" content="Docker,Oracle">
+    <meta name="og:keywords" content="Docker,Oracle">
       
-    <meta name="description" content="前言">
-    <meta name="og:description" content="前言">
+    <meta name="description" content="ECS云服务器">
+    <meta name="og:description" content="ECS云服务器">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/2018/04/15/%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%92%8C%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88%E5%B8%96/">
+    <meta property="og:url" content="http://localhost:4000/2018/04/06/install-Oracle-Docker/">
     <meta property="og:site_name" content="李啧啧_myifeng">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
     
-    <meta property="article:published_time" content="2018-04-15">
+    <meta property="article:published_time" content="2018-04-06">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -86,25 +86,25 @@
     <!-- / header -->
 
 
-    <section class="collection-head small geopattern" data-pattern-id="开发中常用命令和操作集合帖">
+    <section class="collection-head small geopattern" data-pattern-id="初识Docker之Docker">
 <div class="container">
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">开发中常用命令和操作集合帖</h1>
+        <h1 class="collection-header">初识Docker之Docker下安装Oracle</h1>
         <div class="collection-info">
           
           <span class="meta-info">
-            <span class="octicon octicon-calendar"></span> 2018/04/15
+            <span class="octicon octicon-calendar"></span> 2018/04/06
           </span>
           
           
           <span class="meta-info">
             <span class="octicon octicon-file-directory"></span>
-            <a href="http://localhost:4000/categories/#command" title="command">command</a>
+            <a href="http://localhost:4000/categories/#Docker" title="Docker">Docker</a>
           </span>
           
-            <span id="/2018/04/15/%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%92%8C%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88%E5%B8%96/" class="leancloud_visitors" data-flag-title="开发中常用命令和操作集合帖">
+            <span id="/2018/04/06/install-Oracle-Docker/" class="leancloud_visitors" data-flag-title="初识Docker之Docker下安装Oracle">
             <span class="post-meta-divider">|</span>
             <span class="post-meta-item-text"> Hits:  </span>
             <span class="leancloud-visitors-count"></span>
@@ -122,56 +122,202 @@
 <div class="columns">
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
-    <h1 id="前言">前言</h1>
+    <h1 id="ecs云服务器"><strong>ECS云服务器</strong></h1>
 
-<p>此贴只为记录日常使用的一些常用命令或者一些操作，仅作为日常笔记而已，好记性不如烂笔头。日常更新。</p>
+<p>近期阿里云推出一项优惠政策<a href="https://promotion.aliyun.com/ntms/act/group/team.html?group=I00XRrlen0">1核2G 1M宽带 40G SSD硬盘 的ECS云服务器 99一年 279三年</a>，当时就很心动，这么好的优惠果断出手，因为不是新用户所以只好借用别人，帮我买了一个一年期的。然后就开始了慢慢配置环境的道路。</p>
 
-<h1 id="java">Java</h1>
+<h1 id="初识docker"><strong>初识Docker</strong></h1>
+
+<p>当时买这个服务器主要是为后期的毕业设计做一个部署环境。拿到服务器之后就把JDK、Tomcat、MySQL甚至把Nginx都装了上去。。。顿时有一种全才的赶脚。不过现在手上的很多项目都是使用了Oracle数据库，所以理所当然的要装一个Oracle数据库。</p>
+
+<p>然后网上搜了一堆Linux系统安装Oracle的教程，晦涩难懂，极其复杂。中午问了公司架构师怎么在Linux环境中安装Oracle，然后说出了一个熟悉但从未接触过的名字——Docker。</p>
+
+<p>然后就自己百度Docker相关资料。</p>
 
 <blockquote>
-  <p>递归判断编号，根据增长生成不重复编号</p>
+  <p>Docker是什么？</p>
 </blockquote>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>public String checkApplyNo(String applyNo) {
-	List&lt;String&gt; list = dao.queryApplyNo(applyNo);
-	if (list != null &amp;&amp; list.size() &gt; 0) {
-		return checkApplyNo(String.valueOf(Long.valueOf(applyNo) + 1));
-	}
-	return applyNo;
-}
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>“在一艘大船上，可以把货物规整的摆放起来。并且各种各样的货物被集装箱标准化了，集装箱和集装箱之间不会互相影响。那么我就不需要专门运送水果的船和专门运送化学品的船了。只要这些货物在集装箱里封装的好好的，那我就可以用一艘大船把他们都运走。”
 </code></pre></div></div>
 
-<h1 id="linux">Linux</h1>
+<p>Docker就是类似的理念。现在都流行云计算了，云计算就好比大货轮，Docker就是集装箱。</p>
+
+<blockquote>
+  <p>安装Docker</p>
+</blockquote>
+
+<p>Docker 运行在 CentOS 7 上，要求系统为64位、系统内核版本为 3.10 以上。</p>
+
+<p>Docker 运行在 CentOS-6.5 或更高的版本的 CentOS 上，要求系统为64位、系统内核版本为 2.6.32-431 或者更高版本。</p>
+
+<p>在CentOS下使用<code class="highlighter-rouge">yum</code>安装Docker，一共两行命令：</p>
+
+<p>安装：</p>
+
+<blockquote>
+  <p>$ yum -y install docker</p>
+</blockquote>
+
+<p>启动服务：</p>
+
+<blockquote>
+  <p>$ service docker start</p>
+</blockquote>
+
+<p>运行第一个Hello World</p>
+
+<blockquote>
+  <p>$ sudo docker pull hello-world</p>
+</blockquote>
+
+<blockquote>
+  <p>$ sudo docker run hello-word</p>
+</blockquote>
+
+<h1 id="docker下安装oracle"><strong>Docker下安装Oracle</strong></h1>
+
+<p>搜索Oracle镜像</p>
+
+<blockquote>
+  <p>$ sudo docker search Oracle<br /></p>
+</blockquote>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker.io   docker.io/oraclelinux                         Official Docker builds of Oracle Linux.         434       [OK]
+docker.io   docker.io/frolvlad/alpine-oraclejdk8          The smallest Docker image with OracleJDK 8...   300                  [OK]
+docker.io   docker.io/sath89/oracle-12c                   Oracle Standard Edition 12c Release 1 with...   276                  [OK]
+docker.io   docker.io/alexeiled/docker-oracle-xe-11g      This is a working (hopefully) Oracle XE 11...   240                  [OK]
+docker.io   docker.io/sath89/oracle-xe-11g                Oracle xe 11g with database files mount su...   172                  [OK]
+......
+</code></pre></div></div>
+
+<p>这里我使用的是<code class="highlighter-rouge">docker.io/sath89/oracle-12c</code>镜像。有关这个镜像的相关信息请查阅<a href="https://hub.docker.com/r/sath89/oracle-12c/">sath89/oracle-12c</a></p>
+
+<p>首先pull镜像</p>
+
+<blockquote>
+  <p>$ docker pull sath89/oracle-12c</p>
+</blockquote>
+
+<p>这个镜像有2点多G所以要下载好一会。。。</p>
+
+<p>下载安装之后就可以启动运行Oracle了</p>
+
+<blockquote>
+  <p>$ sudo docker run -d -p 8091:8091 -p 1521:1521 sath89/oracle-12c</p>
+</blockquote>
+
+<p>在启动成功之后查看Docker运行的容器</p>
+
+<blockquote>
+  <p>$ docker ps</p>
+</blockquote>
+
+<p>会显示正在Docker运行的程序的相关信息</p>
+
+<p>进入Oracle container</p>
+
+<blockquote>
+  <p>$ docker exec -it CONTAINER ID /bin/bash</p>
+</blockquote>
+
+<p>这里的CONTAINER ID 就是上一步<code class="highlighter-rouge">docker ps</code>显示的镜像id</p>
+
+<p>切换到Oracle</p>
+
+<blockquote>
+  <p>$ su oracle</p>
+</blockquote>
+
+<blockquote>
+  <p>$ ORACLE_HOME/bin/sqlplus / as sysdba</p>
+</blockquote>
+
+<p>然后即可对Oracle进行各种配置和操作了。</p>
+
+<h1 id="docker常用命令"><strong>Docker常用命令</strong></h1>
+
+<blockquote>
+  <p>docker pull 镜像名</p>
+</blockquote>
+
+<blockquote>
+  <p>docker search 镜像名</p>
+</blockquote>
+
+<blockquote>
+  <p>docker images</p>
+</blockquote>
+
+<blockquote>
+  <p>docker ps</p>
+</blockquote>
+
+<blockquote>
+  <p>docker ps -a</p>
+</blockquote>
+
+<blockquote>
+  <p>docker rmi -f 镜像id</p>
+</blockquote>
+
+<blockquote>
+  <p>docker stop 容器名OR容器ID</p>
+</blockquote>
+
+<blockquote>
+  <p>docker start</p>
+</blockquote>
+
+<blockquote>
+  <p>docker kill</p>
+</blockquote>
+
+<blockquote>
+  <p>docker logs</p>
+</blockquote>
+
+<blockquote>
+  <p>docker run</p>
+</blockquote>
+
+<blockquote>
+  <p>service docker start</p>
+</blockquote>
 
 <blockquote>
   <table>
     <tbody>
       <tr>
-        <td>ps -ef</td>
-        <td>grep tomcat  显示所有Tomcat进程信息</td>
+        <td>docker [run</td>
+        <td>start</td>
+        <td>stop</td>
+        <td>restart</td>
+        <td>kill</td>
+        <td>rm</td>
+        <td>pause</td>
+        <td>unpause]</td>
       </tr>
     </tbody>
   </table>
 </blockquote>
 
-<h1 id="easyui">EasyUI</h1>
-
-<p>##</p>
-
 <blockquote>
-  <p>jQuery 选择器</p>
-</blockquote>
-
-<blockquote>
-  <p>$(“.class”).css(“display”,”none”);  //设置不显示</p>
-</blockquote>
-
-<blockquote>
-  <p>$(“.class”).css(“display”,””);  //设置显示</p>
-</blockquote>
-
-<blockquote>
-  <p>$(“#id”).textbox({required:false,value:’’});//设置必填，赋值</p>
+  <table>
+    <tbody>
+      <tr>
+        <td>docker [ps</td>
+        <td>inspect</td>
+        <td>top</td>
+        <td>attach</td>
+        <td>events</td>
+        <td>logs</td>
+        <td>wait</td>
+        <td>export</td>
+        <td>port]</td>
+      </tr>
+    </tbody>
+  </table>
 </blockquote>
 
 
@@ -190,7 +336,7 @@
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: '/2018/04/15/%E5%BC%80%E5%8F%91%E4%B8%AD%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%92%8C%E6%93%8D%E4%BD%9C%E9%9B%86%E5%90%88%E5%B8%96/',
+            id: '/2018/04/06/install-Oracle-Docker/',
             clientID: 'b0d6bb260b842b0838ce',
             clientSecret: '2c44d50d184fa89a5d9977e134680b45a6a7addf',
             repo: 'blog-comments',
@@ -330,7 +476,7 @@ SimpleJekyllSearch({
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-80669434-1', 'auto');
+        ga('create', 'UA-133556314-1', 'auto');
         ga('send', 'pageview');
 
       </script>
@@ -343,7 +489,7 @@ SimpleJekyllSearch({
 
   <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
   <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("EfLTUbK2fJ0dYLAq609NQ2k4-gzGzoHsz", "5Agxeshbunhh9y6XQftwEvGj");</script>
+  <script>AV.initialize("5C0tQR6eaGhuceIV0gvUhkbJ-gzGzoHsz", "ElTbV0gVygY5GWTqtzMcotM7");</script>
   <script>
     function showHitCount(Counter) {
       /* 这是给一个页面中有多篇文章时所调用的，例如博客主界面或者存档界面。

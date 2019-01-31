@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Cookie爆炸引起的思考 &mdash; 李啧啧_myifeng</title>
+    <title>Java企业级电商项目架构演进之路 &mdash; 李啧啧_myifeng</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -21,28 +21,28 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/2018/04/11/Cookie%E7%88%86%E7%82%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E6%80%9D%E8%80%83/">
+    <link rel="canonical" href="http://localhost:4000/2018/04/21/E-commerce-Architecture/">
     <link rel="alternate" type="application/atom+xml" title="李啧啧_myifeng" href="http://localhost:4000/feed.xml">
     <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
     
-    <meta property="og:title" content="Cookie爆炸引起的思考">
+    <meta property="og:title" content="Java企业级电商项目架构演进之路">
       
-    <meta name="keywords" content="Cookie,JQuery">
-    <meta name="og:keywords" content="Cookie,JQuery">
+    <meta name="keywords" content="架构">
+    <meta name="og:keywords" content="架构">
       
-    <meta name="description" content="Cookie大爆炸">
-    <meta name="og:description" content="Cookie大爆炸">
+    <meta name="description" content="目录">
+    <meta name="og:description" content="目录">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/2018/04/11/Cookie%E7%88%86%E7%82%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E6%80%9D%E8%80%83/">
+    <meta property="og:url" content="http://localhost:4000/2018/04/21/E-commerce-Architecture/">
     <meta property="og:site_name" content="李啧啧_myifeng">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
     
-    <meta property="article:published_time" content="2018-04-11">
+    <meta property="article:published_time" content="2018-04-21">
     
     <script src="http://localhost:4000/assets/vendor/jquery/dist/jquery.min.js"></script>
     <script src="http://localhost:4000/assets/js/jquery-ui.js"></script>
@@ -86,25 +86,25 @@
     <!-- / header -->
 
 
-    <section class="collection-head small geopattern" data-pattern-id="Cookie爆炸引起的思考">
+    <section class="collection-head small geopattern" data-pattern-id="Java企业级电商项目架构演进">
 <div class="container">
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">Cookie爆炸引起的思考</h1>
+        <h1 class="collection-header">Java企业级电商项目架构演进之路</h1>
         <div class="collection-info">
           
           <span class="meta-info">
-            <span class="octicon octicon-calendar"></span> 2018/04/11
+            <span class="octicon octicon-calendar"></span> 2018/04/21
           </span>
           
           
           <span class="meta-info">
             <span class="octicon octicon-file-directory"></span>
-            <a href="http://localhost:4000/categories/#Cookie,JQuery" title="Cookie,JQuery">Cookie,JQuery</a>
+            <a href="http://localhost:4000/categories/#架构" title="架构">架构</a>
           </span>
           
-            <span id="/2018/04/11/Cookie%E7%88%86%E7%82%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E6%80%9D%E8%80%83/" class="leancloud_visitors" data-flag-title="Cookie爆炸引起的思考">
+            <span id="/2018/04/21/E-commerce-Architecture/" class="leancloud_visitors" data-flag-title="Java企业级电商项目架构演进之路">
             <span class="post-meta-divider">|</span>
             <span class="post-meta-item-text"> Hits:  </span>
             <span class="leancloud-visitors-count"></span>
@@ -122,96 +122,138 @@
 <div class="columns">
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
-    <h1 id="cookie大爆炸"><strong>Cookie大爆炸</strong></h1>
+    <h1 id="目录"><strong>目录</strong></h1>
 
-<p>“页面加载不出来了！！！，又出现一个BUG”</p>
+<ul>
+  <li><a href="#1.开篇">1.开篇</a>
+    <ul>
+      <li><a href="">1.1 前言</a></li>
+      <li><a href="#1.2">1.2 大型Java项目架构演进解析</a></li>
+    </ul>
+  </li>
+  <li><a href="#2">2.Lombok框架集成及原理解析</a>
+    <ul>
+      <li><a href="">2.1 Lombok简介</a></li>
+      <li><a href="">2.2 Lombok的原理</a></li>
+      <li><a href="">2.3 Lombok的使用</a></li>
+      <li><a href="">2.4 总结</a></li>
+    </ul>
+  </li>
+</ul>
 
-<p>测试系统登陆之后加载不出来，所有页面都挂掉了，但是有的用户登录却很正常。两者对比发现登录后异常的账号是最近用来开发新模块用的账户，所以紧急排查了一下新开发的功能模块，并没有发现问题。并且登录正常的用户也有这个新开发的模块，所以问题应该不是出在新开发的模块上，应该是登录时候哪里出现了问题。</p>
+<!-- /TOC -->
 
-<p>登录时访问后台成功，所以问题极有可能出在登陆之后的操作——Cookie的操作中。因为在登陆之后，要将后台返回过来的相关信息放入Cookie中，后来删掉跟新功能有关的那个Cookie操作，果然就正常了。</p>
+<h1 id="1-开篇"><strong>1 开篇</strong></h1>
 
-<p>问题的原因是什么呢？既不是新功能模块的原因，也是不是新功能操作Cookie的原因，而是Cookie的值过大引起的。在登录异常的用户的Cookie一共有8700字符，删掉没有Cookie之后只有4500多字符，然后系统就正常了。可见Cookie虽好，可不要贪多啊！</p>
+<p>##1.1 前言</p>
 
-<p>到底各种浏览器对Cookie的限制大小为多少，网上也是说法不一，截取了一个，但是感觉应该描述不准确，至少现在我用的Chrome，Cookie4500多字节依然没有问题。</p>
+<p><img src="https://i.imgur.com/JcJI1eC.png" alt="" /></p>
 
-<table>
-  <thead>
-    <tr>
-      <th> </th>
-      <th style="text-align: right">IE6.0</th>
-      <th style="text-align: center">IE7.0+</th>
-      <th style="text-align: center">Opera</th>
-      <th style="text-align: center">FF</th>
-      <th style="text-align: center">Safari</th>
-      <th style="text-align: center">Chrome</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>cookie个数</td>
-      <td style="text-align: right">每个域为20个</td>
-      <td style="text-align: center">每个域为50个</td>
-      <td style="text-align: center">每个域为30个</td>
-      <td style="text-align: center">每个域为20个</td>
-      <td style="text-align: center">没有个数限制</td>
-      <td style="text-align: center">每个域为53个</td>
-    </tr>
-    <tr>
-      <td>cookie大小</td>
-      <td style="text-align: right">4095个字节</td>
-      <td style="text-align: center">4095个字节</td>
-      <td style="text-align: center">4096个字节</td>
-      <td style="text-align: center">4097个字节</td>
-      <td style="text-align: center">4097个字节</td>
-      <td style="text-align: center">4097个字节</td>
-    </tr>
-  </tbody>
-</table>
+<p>本文基于一个完整电商项目进行架构演进，覆盖Tomcat集群+Nginx负载均衡+Redis分布式等核心技能点。</p>
 
-<h1 id="jquery操作cookie"><strong>JQuery操作Cookie</strong></h1>
+<p>##1.2 大型Java项目架构演进解析</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$.cookie('the_cookie','the_value',{
-    expires:7,  
-    path:'/',
-    domain:'jquery.com',
-    secure:true
-})
+<p>任何一个系统的架构都不是一蹴而就的，都是在经历过各种升级迭代之后，各种优化，各种调整之后的产物。例如：一个简单的单服务架构，系统由一个服务器应用和一个数据库加上一个文件服务器构成，通过一个Nginx进行转发。</p>
 
-expires：（Number|Date）有效期；设置一个整数时，单位是天；也可以设置一个日期对象作为Cookie的过期日期；
-path：（String）创建该Cookie的页面路径；
-domain：（String）创建该Cookie的页面域名；
-secure：（Booblean）如果设为true，那么此Cookie的传输会要求一个安全协议，例如：HTTPS；
+<p><img src="https://i.imgur.com/w3zaykx.png" alt="" /></p>
+
+<p>在随着系统用户量的不断提高，对系统也提出了更高的要求，从而就产生了下面这种服务器集群的架构。</p>
+
+<p><img src="https://i.imgur.com/1aQVjXq.png" alt="" /></p>
+
+<p>然后架构在逐渐升级，逐渐完善，就有了下面的服务器集群和分布式缓存系统架构。</p>
+
+<p><img src="https://i.imgur.com/Uk7GQQt.png" alt="" /></p>
+
+<p>当然随着用户的增多，数据库和文件服务器肯定也会做集群，来满足业务场景的需要。</p>
+
+<h1 id="2-lombok框架集成及原理解析"><strong>2 Lombok框架集成及原理解析</strong></h1>
+
+<p>##2.1 Lombok简介</p>
+
+<p>Lombok是一个可以通过简单的注解形式来帮助我们简化消除一些必须有但显得很臃肿的Java代码的工具，通过使用对应的注解，可以在编译源码的时候生成对应的方法。</p>
+
+<p>例如：我们平时开发过程中总是要花很多时间为Java Bean去创建getter和setter方法，当类里面的属性很多时则创建的getter和setter就很多，代码就很长。而lombok就可以为我们省去创建getter和setter方法的麻烦，代码也会更加简洁。</p>
+
+<p>Lombok官方地址: <a href="www.projectlombok.org" title="www.projectlombok.org">www.projectlombok.org</a></p>
+
+<p>##2.2 Lombok的原理</p>
+
+<p>接下来进行lombok能够工作的原理分析。 
+自从Java 6起，javac就支持“JSR 269 Pluggable Annotation Processing API”规范，只要程序实现了该API，就能在javac运行的时候得到调用。 
+举例来说，现在有一个实现了”JSR 269 API”的程序A,那么使用javac编译源码的时候具体流程如下： 
+1)javac对源代码进行分析，生成一棵抽象语法树(AST) 
+2)运行过程中调用实现了”JSR 269 API”的A程序 
+3)此时A程序就可以完成它自己的逻辑，包括修改第一步骤得到的抽象语法树(AST) 
+4)javac使用修改后的抽象语法树(AST)生成字节码文件</p>
+
+<p><img src="https://i.imgur.com/BlXjt0w.jpg" alt="" /></p>
+
+<p>##2.3 Lombok的使用</p>
+
+<p>如果是使用Maven构建项目，则添加以下依赖：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+    &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+    &lt;version&gt;1.16.18&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;
 </code></pre></div></div>
 
-<p>1.增加一个Cookie</p>
+<p>否则直接下载jar包并引入到项目中，下载地址<a href="https://projectlombok.org/download">www.projectlombok.org/download</a></p>
 
-<blockquote>
-  <p>$.cookie(‘the_cookie’, ‘the_value’);</p>
-</blockquote>
+<p>lombok的使用主要是通过注解方式。</p>
 
-<p>2.创建一个cookie并设置有效时间为7天</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@Getter
+@Setter
+@ToString
+@EqualsAndHashCode（of={"userName","passWord"}）
+@NoArgsConstructor
+public class User{
+	private String userName;
+	private String passWord;
+} 
+</code></pre></div></div>
 
-<blockquote>
-  <p>$.cookie(‘the_cookie’, ‘the_value’, { expires: 7 });</p>
-</blockquote>
+<p><code class="highlighter-rouge">@Getter</code>/<code class="highlighter-rouge">@Setter</code></p>
 
-<p>3.创建一个cookie并设置cookie的有效路径</p>
+<p>用于生成getter和setter方法。例如：</p>
 
-<blockquote>
-  <p>$.cookie(‘the_cookie’, ‘the_value’, { expires: 7, path: ‘/’ });</p>
-</blockquote>
+<p><code class="highlighter-rouge">userName</code> 和 <code class="highlighter-rouge">passWord</code>在编译时都会生成getter和setter方法，生成的getter和setter方法是<code class="highlighter-rouge">public</code>的；若要修改其修饰符可设置<code class="highlighter-rouge">AccessLevel的值</code>，如<code class="highlighter-rouge">passWord</code>的getter方法就是<code class="highlighter-rouge">private</code>。</p>
 
-<p>4.读取cookie</p>
+<p><code class="highlighter-rouge">@Getter</code>/<code class="highlighter-rouge">@Setter</code>可以直接在类上进行注释，对类里面所有的属性均可生成getter和setter方法，</p>
 
-<blockquote>
-  <p>$.cookie(‘the_cookie’);</p>
-</blockquote>
+<p><code class="highlighter-rouge">@ToString</code></p>
 
-<p>5.删除cookie</p>
+<p>使用<code class="highlighter-rouge">@ToString</code>会生成<code class="highlighter-rouge">toString()</code>方法，它会按顺序依次打印类名、字段；若想忽略输出字段，则可以用<code class="highlighter-rouge">exclude</code>设置参数；如果有继承父类，可以设置<code class="highlighter-rouge">callSuper</code>为<code class="highlighter-rouge">true</code>让其调用父类<code class="highlighter-rouge">toString()</code>方法：</p>
 
-<blockquote>
-  <p>$.cookie(‘the_cookie’, null);</p>
-</blockquote>
+<p><code class="highlighter-rouge">@EqualsAndHashCode</code></p>
+
+<p>使用@EqualsAndHashCode会生成hashCode()和equals()方法，默认会使用所有非静态、非transient字段；
+如果想排除某些字段可设置exclude参数；
+如果想指定某些字段可设置of参数；
+如果有继承父类，可以设置callSuper为true让其调用父类生成的equals()和hashCode方法，但是当没有继承父类并设置callSuper为true时会在编译时报错。</p>
+
+<p><code class="highlighter-rouge">@NoArgsConstructor</code></p>
+
+<p>使用<code class="highlighter-rouge">@NoArgsConstructor</code>生成一个无参数构造函数。</p>
+
+<p><code class="highlighter-rouge">@AllArgsConstructor</code></p>
+
+<p>生成全参数构造函数，将类中的每个字段生成带有1个参数的构造函数，例如有3个字段，则构造函数的参数为3个;</p>
+
+<p><code class="highlighter-rouge">@Data</code></p>
+
+<p><code class="highlighter-rouge">@Data</code>包含了<code class="highlighter-rouge">@ToString</code>, <code class="highlighter-rouge">@EqualsAndHashCode</code>,<code class="highlighter-rouge">@Getter</code>, <code class="highlighter-rouge">@Setter</code>, <code class="highlighter-rouge">@RequiredArgsConstructor</code>的功能。</p>
+
+<p>更多注解、用法和说明可查看官网文档<a href="https://projectlombok.org/features/all">Lombok features</a></p>
+
+<p>##2.4 总结</p>
+
+<p>使用lombok能够为我们省去手动创建getter和setter方法的麻烦，lombok 有助于代码的整洁、效率的提高以及冗余的减少，但也同时降低了源代码文件的可读性和完整性。</p>
+
+<p>不可过度依赖lombok。</p>
 
 
     </article>
@@ -229,7 +271,7 @@ secure：（Booblean）如果设为true，那么此Cookie的传输会要求一�
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: '/2018/04/11/Cookie%E7%88%86%E7%82%B8%E5%BC%95%E8%B5%B7%E7%9A%84%E6%80%9D%E8%80%83/',
+            id: '/2018/04/21/E-commerce-Architecture/',
             clientID: 'b0d6bb260b842b0838ce',
             clientSecret: '2c44d50d184fa89a5d9977e134680b45a6a7addf',
             repo: 'blog-comments',
@@ -369,7 +411,7 @@ SimpleJekyllSearch({
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-80669434-1', 'auto');
+        ga('create', 'UA-133556314-1', 'auto');
         ga('send', 'pageview');
 
       </script>
@@ -382,7 +424,7 @@ SimpleJekyllSearch({
 
   <script src="https://code.jquery.com/jquery-3.2.0.min.js"></script>
   <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
-  <script>AV.initialize("EfLTUbK2fJ0dYLAq609NQ2k4-gzGzoHsz", "5Agxeshbunhh9y6XQftwEvGj");</script>
+  <script>AV.initialize("5C0tQR6eaGhuceIV0gvUhkbJ-gzGzoHsz", "ElTbV0gVygY5GWTqtzMcotM7");</script>
   <script>
     function showHitCount(Counter) {
       /* 这是给一个页面中有多篇文章时所调用的，例如博客主界面或者存档界面。
