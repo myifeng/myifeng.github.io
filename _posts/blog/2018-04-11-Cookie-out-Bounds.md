@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "Cookie爆炸引起的思考"
-categories: Cookie,JQuery
+categories: JQuery
 date: 2018-04-11 
 description: "Cookie爆炸引起的思考"
-keywords: Cookie,JQuery
+keywords: JQuery
 ---  
 
 # **Cookie大爆炸** #
