@@ -1,4 +1,70 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-01-31T17:48:19+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">李啧啧_myifeng</title><subtitle>Record ideas and knowledge</subtitle><author><name>myifeng</name></author><entry><title type="html">Java企业级电商项目架构演进之路</title><link href="http://localhost:4000/2018/04/21/E-commerce-Architecture/" rel="alternate" type="text/html" title="Java企业级电商项目架构演进之路" /><published>2018-04-21T00:00:00+08:00</published><updated>2018-04-21T00:00:00+08:00</updated><id>http://localhost:4000/2018/04/21/E-commerce-Architecture</id><content type="html" xml:base="http://localhost:4000/2018/04/21/E-commerce-Architecture/">&lt;h1 id=&quot;目录&quot;&gt;&lt;strong&gt;目录&lt;/strong&gt;&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-02-01T15:07:16+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">李啧啧_myifeng</title><subtitle>Record ideas and knowledge</subtitle><author><name>myifeng</name></author><entry><title type="html">使用Docker搭建GitLab</title><link href="http://localhost:4000/2019/02/01/install-GitLab-Docker/" rel="alternate" type="text/html" title="使用Docker搭建GitLab" /><published>2019-02-01T00:00:00+08:00</published><updated>2019-02-01T00:00:00+08:00</updated><id>http://localhost:4000/2019/02/01/install-GitLab-Docker</id><content type="html" xml:base="http://localhost:4000/2019/02/01/install-GitLab-Docker/">&lt;p&gt;&lt;a href=&quot;https://about.gitlab.com/&quot;&gt;GitLab&lt;/a&gt; 是一个用于仓库管理系统的开源项目。使用Git作为代码管理工具，并在此基础上搭建起来的web服务。&lt;/p&gt;
+
+&lt;p&gt;可通过Web界面进行访问公开的或者私人项目。它拥有与Github类似的功能，能够浏览源代码，管理缺陷和注释。可以管理团队对仓库的访问，随着git的流行，越来越多的技术团队通过在自己的服务器搭建gitlab来实现代码的管理。&lt;/p&gt;
+
+&lt;p&gt;现在我们在Linux系统下，通过Docker进行搭建自己的一个GitLab私服。&lt;/p&gt;
+
+&lt;h2 id=&quot;1搜索镜像&quot;&gt;1.搜索镜像&lt;/h2&gt;
+
+&lt;p&gt;首先通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;docker search gitlab&lt;/code&gt; 搜索 gitlab 镜像；&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/blog/2019-02-01-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这里的 docker.io/gitlab/gitlab-ce 是 GitLab 官方的镜像，我们使用这个。&lt;/p&gt;
+
+&lt;h2 id=&quot;2下载镜像&quot;&gt;2.下载镜像&lt;/h2&gt;
+
+&lt;p&gt;使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;docker pull gitlab/gitlab-ce&lt;/code&gt; 下载镜像；&lt;/p&gt;
+
+&lt;p&gt;下载完成后，通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;docker images&lt;/code&gt; 查看当前系统所有的镜像；&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/blog/2019-02-01-2.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3创建并启动容器&quot;&gt;3.创建并启动容器&lt;/h2&gt;
+
+&lt;p&gt;然后就可以通过&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -d -h gitlab -p 443:443 -p 8085:80  -p 2222:22 
+--name gitlab --restart always  
+-v /root/data/gitlab/config:/etc/gitlab 
+-v /root/data/gitlab/logs:/var/log/gitlab 
+-v  /root/data/gitlab/data:/var/opt/gitlab  docker.io/gitlab/gitlab-ce
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;创建并启动容器，这里将端口和文件映射到本机，吧文件映射到本机这是非常重要的。&lt;/p&gt;
+
+&lt;h2 id=&quot;4绑定域名&quot;&gt;4.绑定域名&lt;/h2&gt;
+
+&lt;p&gt;然后我们将域名 &lt;code class=&quot;highlighter-rouge&quot;&gt;git.domain.com&lt;/code&gt; 通过 nginx 指向8085端口，重启 nginx 生效。&lt;/p&gt;
+
+&lt;p&gt;好像最后还要通过&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;docker exec -t -i gitlab vim /etc/gitlab/gitlab.rb&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;或者&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;vim /root/data/gitlab/config/gitlab.rb&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;修改 &lt;code class=&quot;highlighter-rouge&quot;&gt;gitlab.rb&lt;/code&gt;文件&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;external_url &quot;http://git.domain.com&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这里配置的是之前 nginx 绑定的域名。&lt;/p&gt;
+
+&lt;p&gt;之后 &lt;code class=&quot;highlighter-rouge&quot;&gt;docker restart gitlab&lt;/code&gt; 重启容器；&lt;/p&gt;
+
+&lt;h2 id=&quot;5修改root密码登录&quot;&gt;5.修改root密码登录&lt;/h2&gt;
+
+&lt;p&gt;访问&lt;code class=&quot;highlighter-rouge&quot;&gt;git.domain.com&lt;/code&gt;,首次访问可能会有问题，多刷新几次，即可看到更新密码，这里是为root用户修改密码，修改完成之后即可通过root用户登录。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/blog/2019-02-01-3.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/blog/2019-02-01-4.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;6大功告成&quot;&gt;6.大功告成！&lt;/h2&gt;
+
+&lt;p&gt;这样我么那就搭建了一个自己的代码管理仓库，可以尽情使用！&lt;/p&gt;</content><author><name>myifeng</name></author><summary type="html">GitLab 是一个用于仓库管理系统的开源项目。使用Git作为代码管理工具，并在此基础上搭建起来的web服务。</summary></entry><entry><title type="html">Java企业级电商项目架构演进之路</title><link href="http://localhost:4000/2018/04/21/E-commerce-Architecture/" rel="alternate" type="text/html" title="Java企业级电商项目架构演进之路" /><published>2018-04-21T00:00:00+08:00</published><updated>2018-04-21T00:00:00+08:00</updated><id>http://localhost:4000/2018/04/21/E-commerce-Architecture</id><content type="html" xml:base="http://localhost:4000/2018/04/21/E-commerce-Architecture/">&lt;h1 id=&quot;目录&quot;&gt;&lt;strong&gt;目录&lt;/strong&gt;&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;#1.开篇&quot;&gt;1.开篇&lt;/a&gt;

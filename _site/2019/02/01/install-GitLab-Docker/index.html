@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Linux/Unix &mdash; 李啧啧_myifeng</title>
+    <title>使用Docker搭建GitLab &mdash; 李啧啧_myifeng</title>
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-css/css/primer.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/primer-markdown/dist/user-content.min.css">
     <link rel="stylesheet" href="http://localhost:4000/assets/vendor/octicons/octicons/octicons.css">
@@ -21,23 +21,23 @@
     
 
     
-    <link rel="canonical" href="http://localhost:4000/wiki/linux/">
+    <link rel="canonical" href="http://localhost:4000/2019/02/01/install-GitLab-Docker/">
     <link rel="alternate" type="application/atom+xml" title="李啧啧_myifeng" href="http://localhost:4000/feed.xml">
     <link rel="shortcut icon" href="http://localhost:4000/favicon.ico">
     
-    <meta property="og:title" content="Linux/Unix">
+    <meta property="og:title" content="使用Docker搭建GitLab">
       
-    <meta name="keywords" content="Linux">
-    <meta name="og:keywords" content="Linux">
+    <meta name="keywords" content="Docker,Oracle">
+    <meta name="og:keywords" content="Docker,Oracle">
       
-    <meta name="description" content="类 Unix 系统下的一些常用命令和用法。">
-    <meta name="og:description" content="类 Unix 系统下的一些常用命令和用法。">
+    <meta name="description" content="GitLab 是一个用于仓库管理系统的开源项目。使用Git作为代码管理工具，并在此基础上搭建起来的web服务。">
+    <meta name="og:description" content="GitLab 是一个用于仓库管理系统的开源项目。使用Git作为代码管理工具，并在此基础上搭建起来的web服务。">
       
     
     
         
     
-    <meta property="og:url" content="http://localhost:4000/wiki/linux/">
+    <meta property="og:url" content="http://localhost:4000/2019/02/01/install-GitLab-Docker/">
     <meta property="og:site_name" content="李啧啧_myifeng">
     <meta property="og:type" content="article">
     <meta property="og:locale" content="zh_CN" />
@@ -86,12 +86,32 @@
     <!-- / header -->
 
 
-    <section class="collection-head small geopattern" data-pattern-id="Linux/Unix">
+    <section class="collection-head small geopattern" data-pattern-id="使用Docker搭建GitLa">
 <div class="container">
   <div class="columns">
     <div class="column three-fourths">
       <div class="collection-title">
-        <h1 class="collection-header">Linux/Unix</h1>
+        <h1 class="collection-header">使用Docker搭建GitLab</h1>
+        <div class="collection-info">
+          
+          <span class="meta-info">
+            <span class="octicon octicon-calendar"></span> 2019/02/01
+          </span>
+          
+          
+          <span class="meta-info">
+            <span class="octicon octicon-file-directory"></span>
+            <a href="http://localhost:4000/categories/#Docker" title="Docker">Docker</a>
+          </span>
+          
+            <span id="/2019/02/01/install-GitLab-Docker/" class="leancloud_visitors" data-flag-title="使用Docker搭建GitLab">
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-text"> Hits:  </span>
+            <span class="leancloud-visitors-count"></span>
+            </span>
+          
+          
+        </div>
       </div>
     </div>
   </div>
@@ -102,57 +122,73 @@
 <div class="columns">
   <div class="column three-fourths" >
     <article class="article-content markdown-body">
-    <p>类 Unix 系统下的一些常用命令和用法。</p>
+    <p><a href="https://about.gitlab.com/">GitLab</a> 是一个用于仓库管理系统的开源项目。使用Git作为代码管理工具，并在此基础上搭建起来的web服务。</p>
 
-<h2 id="实用命令">实用命令</h2>
+<p>可通过Web界面进行访问公开的或者私人项目。它拥有与Github类似的功能，能够浏览源代码，管理缺陷和注释。可以管理团队对仓库的访问，随着git的流行，越来越多的技术团队通过在自己的服务器搭建gitlab来实现代码的管理。</p>
 
-<h3 id="fuser">fuser</h3>
+<p>现在我们在Linux系统下，通过Docker进行搭建自己的一个GitLab私服。</p>
 
-<p>查看文件被谁占用。</p>
+<h2 id="1搜索镜像">1.搜索镜像</h2>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fuser <span class="nt">-u</span> .linux.md.swp
+<p>首先通过 <code class="highlighter-rouge">docker search gitlab</code> 搜索 gitlab 镜像；</p>
+
+<p><img src="/images/blog/2019-02-01-1.png" alt="" /></p>
+
+<p>这里的 docker.io/gitlab/gitlab-ce 是 GitLab 官方的镜像，我们使用这个。</p>
+
+<h2 id="2下载镜像">2.下载镜像</h2>
+
+<p>使用 <code class="highlighter-rouge">docker pull gitlab/gitlab-ce</code> 下载镜像；</p>
+
+<p>下载完成后，通过 <code class="highlighter-rouge">docker images</code> 查看当前系统所有的镜像；</p>
+
+<p><img src="/images/blog/2019-02-01-2.png" alt="" /></p>
+
+<h2 id="3创建并启动容器">3.创建并启动容器</h2>
+
+<p>然后就可以通过</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d -h gitlab -p 443:443 -p 8085:80  -p 2222:22 
+--name gitlab --restart always  
+-v /root/data/gitlab/config:/etc/gitlab 
+-v /root/data/gitlab/logs:/var/log/gitlab 
+-v  /root/data/gitlab/data:/var/opt/gitlab  docker.io/gitlab/gitlab-ce
 </code></pre></div></div>
 
-<h3 id="id">id</h3>
+<p>创建并启动容器，这里将端口和文件映射到本机，吧文件映射到本机这是非常重要的。</p>
 
-<p>查看当前用户、组 id。</p>
+<h2 id="4绑定域名">4.绑定域名</h2>
 
-<h3 id="lsof">lsof</h3>
+<p>然后我们将域名 <code class="highlighter-rouge">git.domain.com</code> 通过 nginx 指向8085端口，重启 nginx 生效。</p>
 
-<p>查看打开的文件列表。</p>
+<p>好像最后还要通过</p>
 
-<blockquote>
-  <p>An  open  file  may  be  a  regular  file,  a directory, a block special file, a character special file, an executing text reference, a library, a stream or a network file (Internet socket, NFS file or UNIX domain socket.)  A specific file or all the files in a file system may be selected by path.</p>
-</blockquote>
+<p><code class="highlighter-rouge">docker exec -t -i gitlab vim /etc/gitlab/gitlab.rb</code></p>
 
-<h4 id="查看网络相关的文件占用">查看网络相关的文件占用</h4>
+<p>或者</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsof <span class="nt">-i</span>
+<p><code class="highlighter-rouge">vim /root/data/gitlab/config/gitlab.rb</code></p>
+
+<p>修改 <code class="highlighter-rouge">gitlab.rb</code>文件</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>external_url "http://git.domain.com"
 </code></pre></div></div>
 
-<h4 id="查看端口占用">查看端口占用</h4>
+<p>这里配置的是之前 nginx 绑定的域名。</p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsof <span class="nt">-i</span> tcp:5037
-</code></pre></div></div>
+<p>之后 <code class="highlighter-rouge">docker restart gitlab</code> 重启容器；</p>
 
-<h4 id="查看某个文件被谁占用">查看某个文件被谁占用</h4>
+<h2 id="5修改root密码登录">5.修改root密码登录</h2>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsof .linux.md.swp
-</code></pre></div></div>
+<p>访问<code class="highlighter-rouge">git.domain.com</code>,首次访问可能会有问题，多刷新几次，即可看到更新密码，这里是为root用户修改密码，修改完成之后即可通过root用户登录。</p>
 
-<h4 id="查看某个用户占用的文件信息">查看某个用户占用的文件信息</h4>
+<p><img src="/images/blog/2019-02-01-3.png" alt="" /></p>
 
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsof <span class="nt">-u</span> mazhuang
-</code></pre></div></div>
+<p><img src="/images/blog/2019-02-01-4.png" alt="" /></p>
 
-<p><code class="highlighter-rouge">-u</code> 后面可以跟 uid 或 login name。</p>
+<h2 id="6大功告成">6.大功告成！</h2>
 
-<h4 id="查看某个程序占用的文件信息">查看某个程序占用的文件信息</h4>
-
-<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>lsof <span class="nt">-c</span> Vim
-</code></pre></div></div>
-
-<p>注意程序名区分大小写。</p>
+<p>这样我么那就搭建了一个自己的代码管理仓库，可以尽情使用！</p>
 
     </article>
     <div class="share">
@@ -169,7 +205,7 @@
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <script>
         var gitalk = new Gitalk({
-            id: '/wiki/linux/',
+            id: '/2019/02/01/install-GitLab-Docker/',
             clientID: 'b0d6bb260b842b0838ce',
             clientSecret: '2c44d50d184fa89a5d9977e134680b45a6a7addf',
             repo: 'blog-comments',

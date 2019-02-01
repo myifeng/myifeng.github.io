@@ -87,6 +87,12 @@
     } ,
   
     {
+      "title"    : "使用Docker搭建GitLab",
+      "category" : "Docker",
+      "url"      : "http://localhost:4000/2019/02/01/install-GitLab-Docker/"
+    } ,
+  
+    {
       "title"    : "Eclipse",
       "category" : "Eclipse",
       "url"      : "http://localhost:4000/wiki/eclipse/"
