@@ -4,7 +4,7 @@ title: "使用Docker搭建GitLab"
 categories: Docker
 date: 2019-02-01 
 description: "Linux系统中Docker下安装GitLab,搭建自己的版本控制"
-keywords: Docker,Oracle
+keywords: Docker
 ---  
 
 [GitLab](https://about.gitlab.com/) 是一个用于仓库管理系统的开源项目。使用Git作为代码管理工具，并在此基础上搭建起来的web服务。

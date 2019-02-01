@@ -4,7 +4,7 @@ title: "初识Docker之Docker下安装Oracle"
 categories: Docker
 date: 2018-04-06 
 description: "Linux系统中Docker下安装Oracle"
-keywords: Docker,Oracle
+keywords: Docker
 ---  
 
 # **ECS云服务器** #
