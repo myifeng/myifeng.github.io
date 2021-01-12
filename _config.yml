@@ -2,7 +2,7 @@
 #   Main Configs   #
 # ---------------- #
 baseurl:
-url: http://myifeng.com
+url: http://myifeng.live
 date_format: "ordinal"
 title: 李啧啧_myifeng
 subtitle: "myifeng's Personal Blog"
