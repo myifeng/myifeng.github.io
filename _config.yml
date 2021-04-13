@@ -132,3 +132,5 @@ leancloud:
   enable: true
   app_id: 5C0tQR6eaGhuceIV0gvUhkbJ-gzGzoHsz
   app_key: ElTbV0gVygY5GWTqtzMcotM7
+
+theme: jekyll-theme-architect
