@@ -96,7 +96,7 @@ interface Demo {
 ```java
 abstract class Door {
   abstract void open();
-  abstract void close()；
+  abstract void close();
 }
 ```
 使用 interface 方式定义 Door：
@@ -119,7 +119,7 @@ interface Door {
 ```java
 abstract class Door {
   abstract void open();
-  abstract void close()；
+  abstract void close();
   abstract void alarm();
 }
 ```
