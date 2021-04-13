@@ -145,11 +145,11 @@ class AlarmDoor extends Door {
 或者
 
 ```java
-class AlarmDoor implements Door ｛
+class AlarmDoor implements Door {
   void open() {... }
   void close() {... }
   void alarm() {... }
-｝
+}
 ```
 
 &emsp;&emsp;这种方法违反了面向对象设计中的一个核心原则 ISP（Interface Segregation Priciple），在 Door 的定义中把 Door 概念本身固有的行为方法和另外一个概念”报警器”的行为方法混在了一起。这样引起的一个问题是那些仅仅依赖于 Door 这个概念的模块会因为”报警器”这个概念的改变（比如：修改 alarm 方法的参数）而改变，反之依然。
@@ -167,7 +167,7 @@ class AlarmDoor implements Door ｛
 ```java
 abstract class Door {
   abstract void open();
-  abstract void close()；
+  abstract void close();
 }
 
 interface Alarm {
